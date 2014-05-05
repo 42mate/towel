@@ -55,8 +55,6 @@ Download the Sandbox from [here](http://www.42mate.com/sites/42mate.com/files/do
 
 Uncompress the Sandbox.
 
-  tar zxvf latest.tar.gz
-
 Setup a Virtual Host with the public dir in web inside of the Sandbox.
 
 Run composer update to install all packages.
@@ -68,3 +66,10 @@ Next Steps
 
 Read or documentation to learn how to create models, controllers, routes and views to create
 the most awesome apps that you ever imagine !
+
+Why Towel
+=========
+
+A towel, [The Hitchhiker's Guide to the Galaxy] says, is about the most massively useful thing an interstellar hitchhiker can have. Always know where your towel is.
+
+[http://hitchhikers.wikia.com/wiki/Towel](http://hitchhikers.wikia.com/wiki/Towel)
