@@ -10,12 +10,11 @@
       "symfony/translation": "~2.3",
       "symfony/twig-bridge": "~2.3",
       "doctrine/dbal": ">=2.2.0,<2.4.0-dev",
-      //"twig/twig": ">=1.8,<2.0-dev",
+      "42mate/towel": "dev-master"
   },
 
   "autoload": {
       "psr-0": {
-        "Towel":    "vendor/42mate",
         "Frontend": "frontend/"
       }
     }
