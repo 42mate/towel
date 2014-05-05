@@ -11,8 +11,10 @@ Motivation
 * Several frameworks follows the theory but are not practical.
 * We know that in the PHP Community not all the PHP Developers are Computer Scientists.
 * We work in PHP, we love the practicity of PHP and we want to keep it in that way.
-* We are not fans of Java. We hate updates every six months, we want long term support.
+* We hate updates every six months, we want long term support.
 * Everybody has their own framework, we want our framework.
+* We are not fans of Java. 
+
 
 What we did ?
 =============
