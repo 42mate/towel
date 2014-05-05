@@ -1,7 +1,7 @@
 {
     "name": "42mate/towel",
-    "description": "An MVC framework for PHP"  
-    "keywords": ["Silex", "Dbal", "Twig", "MVC", "PHP", "Easy"],
+    "description": "An MVC framework for PHP",
+    "keywords": ["Silex","Dbal","Twig","MVC","PHP","Easy"],
     "homepage": "https://github.com/42mate/towel",
     "type": "library",
     "license": "GPL",
