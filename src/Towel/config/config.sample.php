@@ -10,6 +10,7 @@ define('APP_FW_DIR', APP_ROOT_DIR . '/vendor/42mate/towel/src/Towel');
 define('APP_CONFIG_DIR', dirname(__FILE__));
 define('APP_DIR', dirname(__FILE__) . '/../[[YOURAPPNAME]]');
 define('APP_BASE_URL', '/');
+define('APP_SYS_EMAIL', 'your@email.com');
 
 $appConfig = array(
     'doctrine' => array(
@@ -46,6 +47,10 @@ $appConfig = array(
         'name' => '_SESS_APP',
         'cookie_lifetime' => 0,
         'session.storage.save_path' => '/tmp/',
+    ),
+
+    'class_map' => array(
+        'user' => '\Frontend\Model\User'
     ),
 
     'debug' => true,

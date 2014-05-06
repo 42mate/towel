@@ -8,6 +8,10 @@ class User extends BaseController
 {
     public function profileShow()
     {
+        if (!$this->isAuthenticated()) {
+            return $this->redirect('/login');
+        }
+
         $userModel = $this->session()->set('user');
         return $this->twig()->render('User\profile.twig', array('user' => $userModel));
     }
@@ -18,6 +22,7 @@ class User extends BaseController
             $this->setMessage('warning', 'you are already loggedin');
             return $this->redirect('/');
         }
+
         return $this->twig()->render('user\login.twig');
     }
 
@@ -48,11 +53,7 @@ class User extends BaseController
 
     public function registerShow()
     {
-        $location = new \Frontend\Model\Location();
-        $records = $location->findAll();
-        return $this->twig()->render('user\register.twig', array(
-            'locations' => $records,
-        ));
+        return $this->twig()->render('user\register.twig');
     }
 
     public function registerAction($data)
@@ -78,7 +79,6 @@ class User extends BaseController
         $modelUser->username = $data['model']['username'];
         $modelUser->password = md5($data['model']['password']);
         $modelUser->email = $data['model']['email'];
-        $modelUser->fb_location_id = $data['model']['fb_location_id'];
         $modelUser->save();
         $this->setMessage('success', 'Your was created.');
         return $this->twig()->render('user\registerAction.twig');
@@ -113,8 +113,9 @@ class User extends BaseController
         $to = $modelUser->email;
         $subject = 'Password from Reader';
         $message = 'Your new password is ' . $password;
-        $headers = 'From: info@compraventa.com.ar';
-        mail($message, $subject, $message, $headers);
+        $headers = 'From: ' . APP_SYS_EMAIL;
+        mail($to, $subject, $message, $headers);
+
         return $this->twig()->render('user\recoverAction.twig');
     }
 }

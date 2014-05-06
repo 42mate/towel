@@ -4,14 +4,13 @@ namespace Towel\MVC\Model;
 
 class BaseModel extends \Towel\BaseApp
 {
-    public $id = 'id';
+    public $id_name = 'id';
     public $record;
     public $fields;
     public $fks;
     public $table;
     public $isDirty = false;
     public $isDeleted = false;
-
 
     public function __construct()
     {
@@ -82,7 +81,7 @@ class BaseModel extends \Towel\BaseApp
     {
         $this->db()->insert($this->table, $this->record);
         $id = $this->db()->lastInsertId();
-        $this->record[$this->id] = $id;
+        $this->record[$this->id_name] = $id;
         $this->isDirty = false;
         return $this;
     }
@@ -150,10 +149,10 @@ class BaseModel extends \Towel\BaseApp
      */
     public function identifier()
     {
-        if (empty($this->record[$this->id])) {
+        if (empty($this->record[$this->id_name])) {
             return false;
         }
-        return array($this->id => $this->record[$this->id]);
+        return array($this->id_name => $this->record[$this->id_name]);
     }
 
     /**
@@ -163,10 +162,10 @@ class BaseModel extends \Towel\BaseApp
      */
     public function getId()
     {
-        if (empty($this->record[$this->id])) {
+        if (empty($this->record[$this->id_name])) {
             return false;
         }
-        return $this->record[$this->id];
+        return $this->record[$this->id_name];
     }
 
     /**
@@ -196,10 +195,10 @@ class BaseModel extends \Towel\BaseApp
 
         if (!empty($result)) {
             $this->record = $result;
-            return $this;
+            return $this->record;
         }
 
-        return $this;
+        return false;
     }
 
     /**
@@ -260,11 +259,11 @@ class BaseModel extends \Towel\BaseApp
      *
      * @param String $id
      *
-     * @return \App\Model\BaseModel
+     * @return \Towel\MVC\Model\BaseModel
      */
     public function findById($id)
     {
-        return $this->fetchOne("SELECT * from {$this->table} WHERE {$this->id} = ?",
+        return $this->fetchOne("SELECT * from {$this->table} WHERE {$this->id_name} = ?",
             array($id)
         );
     }
@@ -369,7 +368,7 @@ class BaseModel extends \Towel\BaseApp
         $query->select('t1.*, t2.*')
             ->from($this->table, 't1')
             ->innerJoin('t1', $foreign_table, 't2', $condition)
-            ->where("t1.{$this->id} = ?")
+            ->where("t1.{$this->id_name} = ?")
             ->setParameter(0, $id);
 
         return $query->execute();

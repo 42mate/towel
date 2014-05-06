@@ -81,16 +81,19 @@ class BaseApp
     public function getCurrentUser()
     {
         $userRecord = $this->session()->get('user', false);
-        if ($userRecord == false) {
-            return $userRecord;
+
+        if (!$userRecord) {
+            return false;
         }
-        $userModel = new User();
+
+        $userModel = $this->getInstance('user');
         $userModel->setRecord($userRecord);
+
         return $userModel;
     }
 
     /**
-     * Checks if the User is autenticated.
+     * Checks if the User is authenticated.
      *
      * @return Boolean
      */
@@ -98,6 +101,13 @@ class BaseApp
     {
         $user = $this->getCurrentUser();
         return !empty($user);
+    }
+
+    public function getInstance($classMapName, $args = array()) {
+        $config = $this->config();
+        $className = $config['class_map'][$classMapName];
+        $class = new \ReflectionClass($className);
+        return $class->newInstance($args);
     }
 
 }
