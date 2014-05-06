@@ -20,13 +20,13 @@ $console = new Application('FrameworkTasks', '0.1');
 //Register a command to run from the command line
 //Our command will be started with "./console.php sync"
 $console->register('action')
-        ->setDefinition(array())
-        ->setDescription('Some Action')
-        ->setHelp('Usage: <info>./php app/console/action.php</info>')
-        ->setCode(
-                function(InputInterface $input, OutputInterface $output) use ($app) {
-                  $output->write("Do Something");
-                }
-);
+    ->setDefinition(array())
+    ->setDescription('Some Action')
+    ->setHelp('Usage: <info>./php app/console/action.php</info>')
+    ->setCode(
+        function (InputInterface $input, OutputInterface $output) use ($app) {
+            $output->write("Do Something");
+        }
+    );
 
 $console->run();

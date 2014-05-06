@@ -15,7 +15,6 @@ CREATE TABLE app_user (
                 PRIMARY KEY (id)
 );
 
-
 ALTER TABLE app_user ADD CONSTRAINT location_user_fk
 FOREIGN KEY (fb_location_id)
 REFERENCES location (id)

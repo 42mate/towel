@@ -7,7 +7,8 @@
  *
  * @return string : Url.
  */
-function url($path) {
+function url($path)
+{
     return APP_BASE_URL . $path;
 }
 
@@ -18,7 +19,8 @@ function url($path) {
  * @return string : Full url to the image if exists, empty if not.
  *
  */
-function url_image($pic) {
+function url_image($pic)
+{
     if (!empty($pic) && file_exists(APP_UPLOADS_DIR . '/' . $pic)) {
         return APP_BASE_URL . 'uploads/' . $pic;
     }

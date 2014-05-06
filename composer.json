@@ -1,19 +1,23 @@
 {
     "name": "42mate/towel",
     "description": "An MVC framework for PHP",
-    "keywords": ["Silex","Dbal","Twig","MVC","PHP","Easy"],
+    "keywords": ["Silex", "Dbal", "Twig", "MVC", "PHP", "Easy"],
     "homepage": "https://github.com/42mate/towel",
     "type": "library",
     "license": "GPL",
-    "authors": [{
-      "name": "Casiva Agustin",
-      "email": "agustin@42mate.com",
-      "homepage": "http://www.42mate.com"
-    }],
+    "authors": [
+        {
+            "name": "Casiva Agustin",
+            "email": "agustin@42mate.com",
+            "homepage": "http://www.42mate.com"
+        }
+    ],
     "require": {
-      "php": ">=5.4"
+        "php": ">=5.4"
     },
     "autoload": {
-      "psr-0": { "Towel": "src/" }
+        "psr-0": {
+            "Towel": "src/"
+        }
     }
 }

@@ -26,7 +26,7 @@ class BaseModel extends \Towel\BaseApp
     {
         $sm = $this->db()->getSchemaManager();
         $columns = $sm->listTableColumns($this->table);
-        foreach($columns as $column) {
+        foreach ($columns as $column) {
             $this->fields[$column->getName()] = array(
                 'name' => $column->getName(),
                 'type' => $column->getType(),
@@ -50,7 +50,7 @@ class BaseModel extends \Towel\BaseApp
         if (isset($this->fields[$name])) {
             return $this->record[$name];
         }
-        throw new \Exception('Not a valid Field for Get ' . $name );
+        throw new \Exception('Not a valid Field for Get ' . $name);
     }
 
     /**
@@ -70,7 +70,7 @@ class BaseModel extends \Towel\BaseApp
             $this->isDirty = true;
             return $this->record[$name] = $value;
         }
-        throw new \Exception('Not a valid Field for Set ' . $name );
+        throw new \Exception('Not a valid Field for Set ' . $name);
     }
 
     /**
@@ -104,7 +104,8 @@ class BaseModel extends \Towel\BaseApp
      *
      * @return $this
      */
-    public function save() {
+    public function save()
+    {
         if ($this->isNew()) {
             $this->insert();
         } else {
@@ -120,7 +121,8 @@ class BaseModel extends \Towel\BaseApp
      *
      * @throws \Exception
      */
-    public function delete() {
+    public function delete()
+    {
         if ($this->isNew()) {
             throw new \Exception('ID is not setted for Delete');
         }
@@ -135,7 +137,8 @@ class BaseModel extends \Towel\BaseApp
      *
      * @return Boolean True or False
      */
-    public function isNew() {
+    public function isNew()
+    {
         return !is_array($this->identifier());
     }
 
@@ -145,7 +148,8 @@ class BaseModel extends \Towel\BaseApp
      *
      * @return array|bool
      */
-    public function identifier() {
+    public function identifier()
+    {
         if (empty($this->record[$this->id])) {
             return false;
         }
@@ -157,7 +161,8 @@ class BaseModel extends \Towel\BaseApp
      *
      * @return mixed ID Value or false.
      */
-    public function getId() {
+    public function getId()
+    {
         if (empty($this->record[$this->id])) {
             return false;
         }
@@ -167,7 +172,8 @@ class BaseModel extends \Towel\BaseApp
     /**
      * Resets the values of the object.
      */
-    public function resetObject() {
+    public function resetObject()
+    {
         $this->record = array();
         $this->isDirty = false;
         $this->isDeleted = false;
@@ -184,7 +190,8 @@ class BaseModel extends \Towel\BaseApp
      *
      * @return $this or false
      */
-    public function fetchOne($sql, $params) {
+    public function fetchOne($sql, $params)
+    {
         $result = $this->db()->fetchAssoc($sql, $params);
 
         if (!empty($result)) {
@@ -202,7 +209,8 @@ class BaseModel extends \Towel\BaseApp
      *
      * @return $this
      */
-    public function setRecord($record) {
+    public function setRecord($record)
+    {
         $this->resetObject();
         $newRecord = array();
         foreach ($this->fields as $field_name => $field) {
@@ -223,7 +231,8 @@ class BaseModel extends \Towel\BaseApp
      *
      * @throws \Exception
      */
-    public function mergeRecord($record) {
+    public function mergeRecord($record)
+    {
         if ($this->isNew()) {
             throw new \Exception('Can not merge, is new');
         }
@@ -241,7 +250,8 @@ class BaseModel extends \Towel\BaseApp
      *
      * @return Array
      */
-    public function getRecord() {
+    public function getRecord()
+    {
         return $this->record;
     }
 
@@ -264,7 +274,8 @@ class BaseModel extends \Towel\BaseApp
      *
      * @return mixed
      */
-    public function findAll() {
+    public function findAll()
+    {
         $results = $this->db()->executeQuery("SELECT * FROM {$this->table}");
         return $results;
     }
@@ -277,7 +288,8 @@ class BaseModel extends \Towel\BaseApp
      *
      * @return mixed
      */
-    public function findByField($field_name, $value) {
+    public function findByField($field_name, $value)
+    {
         $query = $this->db()->createQueryBuilder();
         $query->select('t.*')
             ->from($this->table, 't')
@@ -301,7 +313,8 @@ class BaseModel extends \Towel\BaseApp
      *
      * @throws \Exception : If no id is provided.
      */
-    public function findRelated($field_names, $id = null) {
+    public function findRelated($field_names, $id = null)
+    {
 
         if ($this->isNew()) {
             throw new \Exception("There is not ID defined.");
@@ -340,10 +353,11 @@ class BaseModel extends \Towel\BaseApp
      *
      * @return mixed : PDOStatement with results.
      */
-    public function joinWithThis($foreign_table, $local_fields, $foreign_fields, $id = null) {
+    public function joinWithThis($foreign_table, $local_fields, $foreign_fields, $id = null)
+    {
         $condition = '';
 
-        foreach($local_fields as $key => $field) {
+        foreach ($local_fields as $key => $field) {
             $condition .= " t1.$field = t2.{$foreign_fields[$key]}";
         }
 

@@ -10,11 +10,11 @@ $controller = new Towel\MVC\Controller\BaseController;
 
 // Routes
 $app->get('/', function (Request $request) use ($controller) {
-	return $controller->index();
+    return $controller->index();
 });
 
 if ($appConfig['debug']) {
     $app->error(function (\Exception $e) use ($controller) {
-	    return $controller->routeError($e);
+        return $controller->routeError($e);
     });
 }

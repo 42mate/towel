@@ -6,24 +6,27 @@
             <label class="control-label">
                 User Name
             </label>
+
             <div class='controls'>
-                <input id="data_name" type='text' name="data[model][username]" value='' required />
+                <input id="data_name" type='text' name="data[model][username]" value='' required/>
             </div>
         </div>
         <div class='control-group'>
             <label class="control-label">
                 Email
             </label>
+
             <div class='controls'>
-                <input id="data_name" type='email' name="data[model][email]" value='' required />
+                <input id="data_name" type='email' name="data[model][email]" value='' required/>
             </div>
         </div>
         <div class='control-group'>
             <label class="control-label">
                 Location
             </label>
+
             <div class='controls'>
-                <select id="data_fb_location_id" name="data[model][fb_location_id]" >
+                <select id="data_fb_location_id" name="data[model][fb_location_id]">
                     {% for option in locations %}
                         <option value="{{ option['id'] }}">{{ option['location'] }}</option>
                     {% endfor %}
@@ -34,13 +37,14 @@
             <label class="control-label">
                 Password
             </label>
+
             <div class='controls'>
-                <input id="data_password" type='password' name="data[model][password]" value='' />
+                <input id="data_password" type='password' name="data[model][password]" value=''/>
             </div>
         </div>
         <div class='buttons'>
             <div>
-                <input type="submit" value="Register" class="btn register" />
+                <input type="submit" value="Register" class="btn register"/>
             </div>
         </div>
     </form>

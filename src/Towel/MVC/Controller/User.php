@@ -36,7 +36,7 @@ class User extends BaseController
         return $this->redirect('/');
     }
 
-    public  function logoutAction()
+    public function logoutAction()
     {
         if ($this->isAuthenticated()) {
             $this->session()->set('user', null);
@@ -51,7 +51,7 @@ class User extends BaseController
         $location = new \Frontend\Model\Location();
         $records = $location->findAll();
         return $this->twig()->render('user\register.twig', array(
-           'locations' => $records,
+            'locations' => $records,
         ));
     }
 

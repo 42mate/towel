@@ -25,7 +25,7 @@ foreach (glob(APP_FW_DIR . "/includes/*.inc.php") as $includeFiles) {
 
 //Init Routes
 foreach (glob(APP_CONFIG_DIR . "/routes/*Routes.php") as $routeFile) {
-	require_once "$routeFile";
+    require_once "$routeFile";
 }
 
 //Process Session messages.

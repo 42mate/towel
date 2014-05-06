@@ -6,7 +6,8 @@ class Pic extends BaseModel
 {
     public $table = 'pic';
 
-    public function findObjectPics($object_type, $object_id) {
+    public function findObjectPics($object_type, $object_id)
+    {
         $query = $this->db()->createQueryBuilder();
         return $query->select('*')
             ->from($this->table, 'p')

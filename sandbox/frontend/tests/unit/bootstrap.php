@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__.'/../../vendor/autoload.php';
+require_once __DIR__ . '/../../vendor/autoload.php';
 
 global $app;
 
@@ -8,8 +8,8 @@ $app = new Silex\Application();
 
 $app->register(new Silex\Provider\DoctrineServiceProvider(), array(
     'db.options' => array(
-        'driver'   => 'pdo_sqlite',
-        'path'     => __DIR__ . '/../../db/test.db',
+        'driver' => 'pdo_sqlite',
+        'path' => __DIR__ . '/../../db/test.db',
     ),
 ));
 

@@ -17,12 +17,12 @@ class BaseController extends \Towel\BaseApp
     }
 
     /**
-	 * Default Index page
-	 */
-	public function index()
-	{
-		return $this->twig()->render('Default\index.twig');
-	}
+     * Default Index page
+     */
+    public function index()
+    {
+        return $this->twig()->render('Default\index.twig');
+    }
 
     /**
      * 404 and 500 error page for non debug mode
@@ -31,17 +31,18 @@ class BaseController extends \Towel\BaseApp
      *
      * @return Response
      */
-    public function routeError(\Exception $e) {
-		if ($e instanceof NotFoundHttpException) {
-			$responseContent = $this->twig()->render('Default\404.twig');
-			$response = new Response($responseContent, 404);
-		} else {
-        	$responseContent = $this->twig()->render('Default\500.twig', array('error' => $e->getMessage()));
-			$response = new Response($responseContent, 500);
-		}
+    public function routeError(\Exception $e)
+    {
+        if ($e instanceof NotFoundHttpException) {
+            $responseContent = $this->twig()->render('Default\404.twig');
+            $response = new Response($responseContent, 404);
+        } else {
+            $responseContent = $this->twig()->render('Default\500.twig', array('error' => $e->getMessage()));
+            $response = new Response($responseContent, 500);
+        }
 
-		return $response;
-	}
+        return $response;
+    }
 
     /**
      * Redirects the user
@@ -51,14 +52,16 @@ class BaseController extends \Towel\BaseApp
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function redirect($url, $status = 302) {
-		return $this->app->redirect($url, $status);
-	}
+    public function redirect($url, $status = 302)
+    {
+        return $this->app->redirect($url, $status);
+    }
 
     /**
      * Clear all User Messages
      */
-    public function sessionClearMessages() {
+    public function sessionClearMessages()
+    {
         $this->session()->set('messages', array());
     }
 
@@ -66,7 +69,8 @@ class BaseController extends \Towel\BaseApp
      * Gets user Messages
      * @return mixed
      */
-    public function getMessages() {
+    public function getMessages()
+    {
         return $this->session()->get('messages', array());
     }
 
@@ -76,12 +80,13 @@ class BaseController extends \Towel\BaseApp
      * @param $type
      * @param $content
      */
-    public function setMessage($type, $content) {
+    public function setMessage($type, $content)
+    {
         $message = new \stdClass;
         $message->mt = $type;
         $message->content = $content;
         $messages = $this->session()->get('messages', array());
-        $messages[]= $message;
+        $messages[] = $message;
         $this->session()->set('messages', $messages);
     }
 
@@ -90,7 +95,8 @@ class BaseController extends \Towel\BaseApp
      *
      * @return \Symfony\Component\HttpFoundation\Request.
      */
-    public function getRequest() {
+    public function getRequest()
+    {
         return $this->app['request'];
     }
 
@@ -101,7 +107,8 @@ class BaseController extends \Towel\BaseApp
      * @param $table
      * @param $files
      */
-    public function attachFiles($id, $table, $files) {
+    public function attachFiles($id, $table, $files)
+    {
         foreach ($files as $file) {
             if (!empty($file)) {
                 $this->attachFile($id, $table, $file);
@@ -116,7 +123,8 @@ class BaseController extends \Towel\BaseApp
      * @param $table
      * @param \Symfony\Component\HttpFoundation\File\UploadedFile $file
      */
-    public function attachFile($id, $table, \Symfony\Component\HttpFoundation\File\UploadedFile $file) {
+    public function attachFile($id, $table, \Symfony\Component\HttpFoundation\File\UploadedFile $file)
+    {
         $newFileName = md5(microtime() . '.' . strtolower($file->getClientOriginalExtension()));
         $relativePath = $table . '/' . date('Y/m/d');
         $relativeFilePath = $relativePath . '/' . $newFileName;
