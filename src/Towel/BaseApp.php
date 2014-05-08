@@ -102,11 +102,32 @@ class BaseApp
         return !empty($user);
     }
 
-    public function getInstance($classMapName, $args = array()) {
-        $config = $this->config();
-        $className = $config['class_map'][$classMapName];
-        $class = new \ReflectionClass($className);
-        return $class->newInstance($args);
+    /**
+     * Gets an instance of the given class name.
+     *
+     * @param $classMapName : Class name.
+     * @param array $args : Args for the constructor
+     * @param $singleton : To get Singleton Classes.
+     *
+     * @return object
+     */
+    public function getInstance($classMapName, $args = array(), $singleton = false) {
+        static $objects = array();
+
+        if (empty($objects[md5($classMapName)])) {
+            $config = $this->config();
+            $className = $config['class_map'][$classMapName];
+            $class = new \ReflectionClass($className);
+            $object = $class->newInstance($args);
+
+            if ($singleton) {
+                $objects[$classMapName] = $object;
+            }
+        } else {
+            $object = $objects[md5($classMapName)];
+        }
+
+        return $object;
     }
 
 }
