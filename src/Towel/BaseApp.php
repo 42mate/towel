@@ -81,7 +81,6 @@ class BaseApp
     public function getCurrentUser()
     {
         $userRecord = $this->session()->get('user', false);
-
         if (!$userRecord) {
             return false;
         }
