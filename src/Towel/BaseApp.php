@@ -2,8 +2,6 @@
 
 namespace Towel;
 
-use Towel\MVC\Model\User;
-
 class BaseApp
 {
 
@@ -74,7 +72,7 @@ class BaseApp
     }
 
     /**
-     * Gets the current user or false if is not autenticated.
+     * Gets the current user or false if is not authenticated.
      *
      * @returns \Frontend\Model\User or false
      */
