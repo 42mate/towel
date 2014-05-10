@@ -6,6 +6,11 @@ use \Towel\MVC\Model\User as ModelUser;
 
 class User extends BaseController
 {
+    /**
+     * Shows the profile page.
+     *
+     * @return string|\Symfony\Component\HttpFoundation\RedirectResponse
+     */
     public function profileShow()
     {
         if (!$this->isAuthenticated()) {
@@ -16,6 +21,11 @@ class User extends BaseController
         return $this->twig()->render('User\profile.twig', array('user' => $userModel));
     }
 
+    /**
+     * Shows the login form.
+     *
+     * @return string|\Symfony\Component\HttpFoundation\RedirectResponse
+     */
     public function loginShow()
     {
         if ($this->isAuthenticated()) {
@@ -26,6 +36,13 @@ class User extends BaseController
         return $this->twig()->render('user\login.twig');
     }
 
+    /**
+     * Handles the login action.
+     *
+     * @param $request
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
     public function loginAction($request)
     {
         $data = $request->get('data');
@@ -42,6 +59,11 @@ class User extends BaseController
         return $this->redirect('/');
     }
 
+    /**
+     * Handles the logout actions.
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
     public function logoutAction()
     {
         if ($this->isAuthenticated()) {
@@ -52,11 +74,23 @@ class User extends BaseController
         return $this->redirect('/');
     }
 
+    /**
+     * Shows the register form.
+     *
+     * @return string
+     */
     public function registerShow()
     {
         return $this->twig()->render('user\register.twig');
     }
 
+    /**
+     * Shows register form.
+     *
+     * @param $data
+     *
+     * @return string|\Symfony\Component\HttpFoundation\RedirectResponse
+     */
     public function registerAction($data)
     {
         $modelUser = new ModelUser();
@@ -85,11 +119,23 @@ class User extends BaseController
         return $this->twig()->render('user\registerAction.twig');
     }
 
+    /**
+     * Shows the recover form.
+     *
+     * @return string
+     */
     public function recoverShow()
     {
         return $this->twig()->render('User\recover.twig');
     }
 
+    /**
+     * Handles the recover action.
+     *
+     * @param $request
+     *
+     * @return string|\Symfony\Component\HttpFoundation\RedirectResponse
+     */
     public function recoverAction($request)
     {
         $data = $request->get('data');
@@ -115,8 +161,7 @@ class User extends BaseController
         $to = $modelUser->email;
         $subject = 'Password from Reader';
         $message = 'Your new password is ' . $password;
-        $headers = 'From: ' . APP_SYS_EMAIL;
-        mail($to, $subject, $message, $headers);
+        $this->sendMail($to, $subject, $message);
 
         return $this->twig()->render('user\recoverAction.twig');
     }

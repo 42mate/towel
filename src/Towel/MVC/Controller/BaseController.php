@@ -54,7 +54,7 @@ class BaseController extends \Towel\BaseApp
      */
     public function redirect($url, $status = 302)
     {
-        return $this->app->redirect($url, $status);
+        return $this->silex->redirect($url, $status);
     }
 
     /**

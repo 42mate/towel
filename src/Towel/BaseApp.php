@@ -6,8 +6,9 @@ class BaseApp
 {
 
     public $database = 'default';
-    public $app;
+    public $silex;
     public $appConfig;
+    static $instance = null;
 
     /**
      * Makes available app and config as part of the
@@ -15,12 +16,17 @@ class BaseApp
      */
     public function __construct()
     {
-        global $app;
-        $this->app = $app;
+        global $silex;
+        $this->silex = $silex;
         global $appConfig;
         $this->appConfig = $appConfig;
     }
 
+    /**
+     * Gets the config Array.
+     *
+     * @return array
+     */
     public function config()
     {
         return $this->appConfig;
@@ -28,11 +34,12 @@ class BaseApp
 
     /**
      * Gets twig engine.
+     *
      * @return \Twig_Environment
      */
     public function twig()
     {
-        return $this->app['twig'];
+        return $this->silex['twig'];
     }
 
     /**
@@ -48,7 +55,16 @@ class BaseApp
         if (empty($database)) {
             $database = $this->database;
         }
-        return $this->app['dbs'][$database];
+        return $this->silex['dbs'][$database];
+    }
+
+    /**
+     * Gets the silex application.
+     *
+     * @return \Silex\Application
+     */
+    public function silex() {
+        return $this->silex;
     }
 
     /**
@@ -68,7 +84,7 @@ class BaseApp
      */
     public function session()
     {
-        return $this->app['session'];
+        return $this->silex['session'];
     }
 
     /**
@@ -126,6 +142,28 @@ class BaseApp
         }
 
         return $object;
+    }
+
+    /**
+     * Run the application.
+     */
+    public function run() {
+        $this->silex()->run();
+    }
+
+    /**
+     * Sends an Email.
+     *
+     * @param $to
+     * @param string $subject
+     * @param string $message
+     * @param string $headers
+     */
+    public function sendMail($to, $subject = '', $message = '', $headers = '') {
+        if (empty($headers)) {
+            $headers = 'From: ' . APP_SYS_EMAIL;
+        }
+        mail($to, $subject, $message, $headers);
     }
 
 }

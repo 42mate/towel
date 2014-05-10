@@ -6,6 +6,14 @@ class Pic extends BaseModel
 {
     public $table = 'pic';
 
+    /**
+     * Finds a Picture/s for the given object type / object id.
+     *
+     * @param $object_type
+     * @param $object_id
+     *
+     * @return mixed
+     */
     public function findObjectPics($object_type, $object_id)
     {
         $query = $this->db()->createQueryBuilder();

@@ -1,17 +1,11 @@
 <?php
 
-/**
- * Default Routes for / , 404 and 500 pages.
- */
-
-$controller = new Towel\MVC\Controller\BaseController;
-
-// Routes
+$controller = new Towel\MVC\Controller\BaseController();
 
 add_route('get', '/', array($controller, 'index'));
 
 if ($appConfig['debug']) {
-    $app->error(function (\Exception $e) use ($controller) {
+    get_app()->silex()->error(function (\Exception $e) use ($controller) {
         return $controller->routeError($e);
     });
 }

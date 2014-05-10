@@ -5,8 +5,8 @@
  * to yourapp/config/routes to enabled this feature.
  */
 
-$app = new \Towel\MVC\Controller\BaseController();
-$controller = $app->getInstance('user_controller');
+$controller = get_app()->getInstance('user_controller');
+
 add_route('get', '/login', array($controller, 'loginShow'));
 add_route('post', '/login', array($controller, 'loginAction'));
 add_route('get', '/logout', array($controller, 'logoutAction'));

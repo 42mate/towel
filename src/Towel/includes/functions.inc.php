@@ -6,6 +6,14 @@
  * Do not use this file to create specific logic, just for general propose functions.
  */
 
+/**
+ * Generates a random passoword.
+ *
+ * @param int $length
+ * @param int $strength
+ *
+ * @return string
+ */
 function generatePassword($length = 9, $strength = 0)
 {
     $vowels = 'aeuy';
@@ -52,8 +60,8 @@ function generatePassword($length = 9, $strength = 0)
  */
 function add_route($method, $route, $action, $options = array())
 {
-    global $app;
-    $app->$method($route, function (\Symfony\Component\HttpFoundation\Request $request) use ($action, $options) {
+    global $silex;
+    $silex->$method($route, function (\Symfony\Component\HttpFoundation\Request $request) use ($action, $options) {
         $controller = get_base_controller();
 
         if (!empty($options['secure']) && $options['secure'] == true) {
@@ -72,7 +80,9 @@ function add_route($method, $route, $action, $options = array())
  */
 function get_app()
 {
-    return new \Towel\BaseApp();
+    global $appConfig;
+    $appClass = $appConfig['class_map']['app'];
+    return new $appClass();
 }
 
 /**

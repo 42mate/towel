@@ -11,12 +11,12 @@ define('MESSAGE_DANGER', 'danger');
 define('MESSAGE_WARNING', 'warning');
 
 //Init App
-global $app;
-$app = new Silex\Application();
-$app['debug'] = $appConfig['debug'];
-$app->register(new Silex\Provider\DoctrineServiceProvider(), $appConfig['doctrine']);
-$app->register(new Silex\Provider\TwigServiceProvider(), $appConfig['twig']);
-$app->register(new Silex\Provider\SessionServiceProvider(), $appConfig['sessions']);
+global $silex;
+$silex = new Silex\Application();
+$silex['debug'] = $appConfig['debug'];
+$silex->register(new Silex\Provider\DoctrineServiceProvider(), $appConfig['doctrine']);
+$silex->register(new Silex\Provider\TwigServiceProvider(), $appConfig['twig']);
+$silex->register(new Silex\Provider\SessionServiceProvider(), $appConfig['sessions']);
 
 //Init Routes
 foreach (glob(APP_FW_DIR . "/includes/*.inc.php") as $includeFiles) {
@@ -29,6 +29,6 @@ foreach (glob(APP_CONFIG_DIR . "/routes/*Routes.php") as $routeFile) {
 }
 
 //Process Session messages.
-$app['twig']->addGlobal('messages', $app['session']->get('messages'));
-$app['twig']->addGlobal('fw_app', new \Towel\BaseApp());
-$app['session']->set('messages', array());
+$silex['twig']->addGlobal('messages', $silex['session']->get('messages'));
+$silex['twig']->addGlobal('fw_app', new \Towel\BaseApp());
+$silex['session']->set('messages', array());
