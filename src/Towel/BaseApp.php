@@ -83,7 +83,7 @@ class BaseApp
             return false;
         }
 
-        $userModel = $this->getInstance('user');
+        $userModel = $this->getInstance('user_model');
         $userModel->setRecord($userRecord);
 
         return $userModel;

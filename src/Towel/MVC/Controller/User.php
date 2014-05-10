@@ -26,8 +26,9 @@ class User extends BaseController
         return $this->twig()->render('user\login.twig');
     }
 
-    public function loginAction($data)
+    public function loginAction($request)
     {
+        $data = $request->get('data');
         $userModel = new ModelUser();
         $validUser = $userModel->validateLogin($data['email'], $data['password']);
 
@@ -89,8 +90,9 @@ class User extends BaseController
         return $this->twig()->render('User\recover.twig');
     }
 
-    public function recoverAction($data)
+    public function recoverAction($request)
     {
+        $data = $request->get('data');
         $modelUser = new ModelUser;
 
         if ($this->isAuthenticated()) {

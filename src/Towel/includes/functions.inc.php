@@ -61,7 +61,6 @@ function add_route($method, $route, $action, $options = array())
                 return $controller->redirect('/login');
             }
         }
-
         return call_user_func_array($action, array($request));
     });
 }
