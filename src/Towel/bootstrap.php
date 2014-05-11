@@ -17,6 +17,7 @@ $silex['debug'] = $appConfig['debug'];
 $silex->register(new Silex\Provider\DoctrineServiceProvider(), $appConfig['doctrine']);
 $silex->register(new Silex\Provider\TwigServiceProvider(), $appConfig['twig']);
 $silex->register(new Silex\Provider\SessionServiceProvider(), $appConfig['sessions']);
+$silex->register(new Silex\Provider\UrlGeneratorServiceProvider());
 
 //Init Routes
 foreach (glob(APP_FW_DIR . "/includes/*.inc.php") as $includeFiles) {

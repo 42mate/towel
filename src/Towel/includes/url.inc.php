@@ -3,13 +3,29 @@
 /**
  * Returns a full url with a given path.
  *
- * @param $path
+ * @param $route
+ * @param array $parameters
+ * @param bool $absolute
  *
  * @return string : Url.
  */
-function url($path)
+function url($route, $parameters = array(), $absolute = false)
 {
-    return APP_BASE_URL . $path;
+    if ($route[0] == '/') { //Literal route, checks if need to include a prefix.
+        $url_prefix = '';
+        if (count(APP_BASE_URL) > 0) {
+            $url_prefix = APP_BASE_URL;
+        }
+        return $url_prefix . $route;
+    }
+
+    $towel = get_app(); //Named route, will generate the url.
+    if ($absolute) {
+        $return = $towel->url($route, $parameters);
+    } else {
+        $return = $towel->path($route, $parameters);
+    }
+    return $return;
 }
 
 /**

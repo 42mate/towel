@@ -50,18 +50,29 @@ function generatePassword($length = 9, $strength = 0)
  *
  * @param $method : GET, POST, PUT, DELETE
  * @param $route : The route Pattern (Any Silex Route Valid Pattern).
- * @param $action : Array with an instance of controller and his action or just an string with
- *                  the function name to call.
- * @param $options: Array of Options Key, Value
- *
+ * @param array $options :
+ *    controller: The controller with the action
+ *    action : The method or function name to execute.
  *    secure : Boolean if you require and authorized user for the action.
+ *    route_name : Name of the route to be used in the url generator.
+ *
+ * @throws Exception if no action is provided in options.
  *
  * @return The action Result.
  */
-function add_route($method, $route, $action, $options = array())
+function add_route($method, $route, $options = array())
 {
     global $silex;
-    $silex->$method($route, function (\Symfony\Component\HttpFoundation\Request $request) use ($action, $options) {
+
+    if (!empty($options['controller']) && !empty($options['action'])) {
+        $action = array(
+            $options['controller'], $options['action']
+        );
+    } else {
+        throw new Exception('Needs an action');
+    }
+
+    $route = $silex->$method($route, function (\Symfony\Component\HttpFoundation\Request $request) use ($action, $options) {
         $controller = get_base_controller();
 
         if (!empty($options['secure']) && $options['secure'] == true) {
@@ -69,8 +80,14 @@ function add_route($method, $route, $action, $options = array())
                 return $controller->redirect('/login');
             }
         }
+
         return call_user_func_array($action, array($request));
     });
+
+    if (!empty($options['route_name'])) {
+        $route->bind($options['route_name']);
+    }
+
 }
 
 /**
