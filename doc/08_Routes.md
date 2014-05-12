@@ -60,11 +60,15 @@ To solve the first problem Towel have a constant called APP_BASE_URL, this is th
 in the config file and by default is /, if you have your app inside of a directory you may want to change it. If you build
 your links manually remember to add this constant at the beginning.
 
-````$url = APP_BASE_URL . 'controller/method/66';  // $url = /controller/method/66 ````
+````php
+$url = APP_BASE_URL . 'controller/method/66';  // $url = /controller/method/66
+````
 
 To build links Towel provides the url function, url will add the APP_BASE_URL for you.
 
-```` url('/controller/method/66'); ````
+````php
+ url('/controller/method/66');
+````
 
 NOTE : Always add the / for manual routes.
 
@@ -72,11 +76,15 @@ NOTE : Always add the / for manual routes.
 
 If you use ***named routes*** you can use the name of the route in url function.
 
-``` url('myRoute', array('id' => 66)); ```
+````php
+ url('myRoute', array('id' => 66));
+````
 
 Or in twig
 
-``` {{ url('myRoute', { 'id' => 66 }) }} ```
+````php
+ {{ url('myRoute', { 'id' => 66 }) }}
+````
 
 Named Routes will solve the problem if the url of the patter changes, you'll only need to change the pattern in routes
 and that's it, any place that use url will be updated automatically if the parameters of the url remains equals.
@@ -88,11 +96,15 @@ For named route you must not have to include / at the beginning of the name.
 If you need absolutes urls (with the domain no just the path) add true as third parameter of url.
 
 
-``` url('myRoute', array('id' => 66), true); ```
+````php
+ url('myRoute', array('id' => 66), true);
+````
 
 Or in twig
 
-``` {{ url('myRoute', { 'id' => 66 }, true) }} ```
+````hp
+ {{ url('myRoute', { 'id' => 66 }, true) }}
+````
 
 ### Important ###
 
