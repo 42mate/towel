@@ -101,6 +101,6 @@ We recommend the use of named route always, it will save you a lot of work :)
 ## Resume ##
 
 * Use ***add_route*** in APP_DIR/config/routes/*Routes.php files to define new routes.
-* Use url to build route links in twig or php code.
-* Try to use named routes.
-* Always check APP_BASE_URL constant to verify if works for your environment.
+* Use ***url*** to build route links in twig or php code.
+* Try to use ***named routes*** always.
+* Check APP_BASE_URL constant to verify if works for your environment (config file).
