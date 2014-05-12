@@ -33,10 +33,10 @@ So in a nutshell here is an example of a route
 $controller = new Frontend\Controller\Post;
 $entity = 'post';
 
-add_route('get', "/myRoute", array(
+add_route('get', "/controller/method/{id}", array(
         'controller' => new Frontend\Controller\MyController(),
         'action' => 'myPublicMethod',
-        'route_name' => 'controller/method/{id}',
+        'route_name' => 'myRoute',
         'secure' => false,
     )
 );
@@ -48,5 +48,39 @@ add_route('get', "/myRoute", array(
 * myPublicMethod will receive a Request Object (\Symfony\Component\HttpFoundation\Request),
 * Towel is going to execute the method of the controller.
 * myPublicMethod must return the Content for the response, if nothing is returned an exception will be thrown.
-* Id is going to be available with the request object (```$request->get('id')````);
+* Id is going to be available with the request object (```$request->get('id')```);
 * add_route is just a shortcut for what Silex does, you can add any custom code here and it will work.
+
+## Build links ##
+
+You can just create the urls by hand if you want but keep in mind that your app can be moved to another path and
+your url pattern may change in the future.
+
+To solve the first problem Towel have a constant called APP_BASE_URL, this is the path prefix for the site, is defined
+in the config file and by default is /, if you have your app inside of a directory you may want to change it. If you build
+your links manually remember to add this constant at the beginning.
+
+````$url = APP_BASE_URL . 'controller/method/66';  // $url = /controller/method/66 ````
+
+To build links Towel provides the url function, url will add the APP_BASE_URL for you.
+
+```` url('/controller/method/66'); ````
+
+NOTE : Always add the / for manual routes.
+
+
+## Named Routes ##
+
+If you use ***named routes*** you can use the name of the route in url function.
+
+```` url('myRoute', array('id' => 66)); ```
+
+Or in twig
+
+```` {{ url('myRoute', { 'id' => 66 }) }} ```
+
+Named Routes will solve the problem if the url of the patter changes, you'll only need to change the pattern in routes
+and that's it, any place that use url will be updated automatically if the parameters of the url remains equals.
+
+For named route you must not have to include / at the beginning of the name.
+
