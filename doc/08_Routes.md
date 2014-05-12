@@ -93,3 +93,7 @@ If you need absolutes urls (with the domain no just the path) add true as third 
 Or in twig
 
 ``` {{ url('myRoute', { 'id' => 66 }, true) }} ```
+
+### Important ###
+
+We recommend the use of named route always, it will save you a lot of work :)
