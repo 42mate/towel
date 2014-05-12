@@ -68,19 +68,28 @@ To build links Towel provides the url function, url will add the APP_BASE_URL fo
 
 NOTE : Always add the / for manual routes.
 
-
 ## Named Routes ##
 
 If you use ***named routes*** you can use the name of the route in url function.
 
-```` url('myRoute', array('id' => 66)); ```
+``` url('myRoute', array('id' => 66)); ```
 
 Or in twig
 
-```` {{ url('myRoute', { 'id' => 66 }) }} ```
+``` {{ url('myRoute', { 'id' => 66 }) }} ```
 
 Named Routes will solve the problem if the url of the patter changes, you'll only need to change the pattern in routes
 and that's it, any place that use url will be updated automatically if the parameters of the url remains equals.
 
 For named route you must not have to include / at the beginning of the name.
 
+### Absolutes Urls ###
+
+If you need absolutes urls (with the domain no just the path) add true as third parameter of url.
+
+
+``` url('myRoute', array('id' => 66), true); ```
+
+Or in twig
+
+``` {{ url('myRoute', { 'id' => 66 }, true) }} ```
