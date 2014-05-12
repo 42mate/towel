@@ -29,7 +29,14 @@ foreach (glob(APP_CONFIG_DIR . "/routes/*Routes.php") as $routeFile) {
     require_once "$routeFile";
 }
 
+//Init Twig Functions
+require_once APP_FW_DIR . "/twig/twig_functions.inc.php";
+
+//Init Twig Filters
+require_once APP_FW_DIR . "/twig/twig_filters.inc.php";
+
 //Process Session messages.
 $silex['twig']->addGlobal('messages', $silex['session']->get('messages'));
 $silex['twig']->addGlobal('fw_app', new \Towel\BaseApp());
 $silex['session']->set('messages', array());
+

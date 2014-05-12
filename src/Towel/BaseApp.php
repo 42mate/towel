@@ -189,7 +189,7 @@ class BaseApp
      */
     public function url($route, $parameters = array())
     {
-        return $this['url_generator']->generate($route, $parameters, \Symfony\Component\Routing\Generator\UrlGeneratorInterface::ABSOLUTE_URL);
+        return $this->silex['url_generator']->generate($route, $parameters, \Symfony\Component\Routing\Generator\UrlGeneratorInterface::ABSOLUTE_URL);
     }
 
 }

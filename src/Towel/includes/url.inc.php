@@ -25,6 +25,7 @@ function url($route, $parameters = array(), $absolute = false)
     } else {
         $return = $towel->path($route, $parameters);
     }
+
     return $return;
 }
 

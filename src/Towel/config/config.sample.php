@@ -50,7 +50,9 @@ $appConfig = array(
     ),
 
     'class_map' => array(
-        'user' => '\Frontend\Model\User'
+        'app' => '\Towel\BaseApp',
+        'user_model' => '\Frontend\Model\User',
+        'user_controller' => '\Towel\MVC\Controller\User',
     ),
 
     'debug' => true,
