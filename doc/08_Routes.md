@@ -13,9 +13,9 @@ This Routes files are just PHP files that are going to be executed, so this is j
 
 To define routes Towels provides the function add_route, this function receives the following parameters
 
- * **Method** : get, post, put, delete
- * **The Route** : Any route expression valid for the Routing Matcher
- * **Options** : An array with options.
+ * **method** : get, post, put, delete
+ * **route** : Any route expression valid for the Routing Matcher
+ * **options** : An array with options.
 
 Options must have defined two entries
 
@@ -48,5 +48,5 @@ add_route('get', "/myRoute", array(
 * myPublicMethod will receive a Request Object (\Symfony\Component\HttpFoundation\Request),
 * Towel is going to execute the method of the controller.
 * myPublicMethod must return the Content for the response, if nothing is returned an exception will be thrown.
-* Id is going to be available with the request object ($request->get('id'));
-
+* Id is going to be available with the request object (```$request->get('id')````);
+* add_route is just a shortcut for what Silex does, you can add any custom code here and it will work.
