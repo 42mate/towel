@@ -91,7 +91,7 @@ and that's it, any place that use url will be updated automatically if the param
 
 For named route you must not have to include / at the beginning of the name.
 
-### Absolutes Urls ###
+## Absolutes Urls ##
 
 If you need absolutes urls (with the domain no just the path) add true as third parameter of url.
 
@@ -106,13 +106,9 @@ Or in twig
  {{ url('myRoute', { 'id' => 66 }, true) }}
 ````
 
-### Important ###
-
-We recommend the use of named route always, it will save you a lot of work :)
-
 ## Resume ##
 
 * Use ***add_route*** in APP_DIR/config/routes/*Routes.php files to define new routes.
 * Use ***url*** to build route links in twig or php code.
-* Try to use ***named routes*** always.
+* Try to use ***named routes*** always, it will save you a lot of work :)
 * Check ***APP_BASE_URL*** constant to verify if works for your environment (config file).
