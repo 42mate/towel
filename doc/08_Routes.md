@@ -13,19 +13,19 @@ This Routes files are just PHP files that are going to be executed, so this is j
 
 To define routes Towels provides the function add_route, this function receives the following parameters
 
- * Method : get, post, put, delete
- * The Route : Any route expression valid for the Routing Matcher
- * Options: An array with options.
+ * **Method** : get, post, put, delete
+ * **The Route** : Any route expression valid for the Routing Matcher
+ * **Options** : An array with options.
 
 Options must have defined two entries
 
- * controller : An instance of a valid controller.
- * action : The public method of the controller that is going to be executed. Action will receive a Request Object.
+ * **controller** : An instance of a valid controller.
+ * **action** : The public method of the controller that is going to be executed. Action will receive a Request Object.
 
 Optionally values are of options are
 
- * route_name : If you want to use this route pattern with named routes.
- * secure : Boolean, true if the route is only for authenticated users.
+ * **route_name** : If you want to use this route pattern with named routes.
+ * **secure** : Boolean, true if the route is only for authenticated users.
 
 So in a nutshell here is an example of a route
 
@@ -33,7 +33,7 @@ So in a nutshell here is an example of a route
 $controller = new Frontend\Controller\Post;
 $entity = 'post';
 
-add_route('get', "/venden", array(
+add_route('get', "/myRoute", array(
         'controller' => new Frontend\Controller\MyController(),
         'action' => 'myPublicMethod',
         'route_name' => 'controller/method/{id}',
