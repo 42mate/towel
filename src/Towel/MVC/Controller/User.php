@@ -29,7 +29,7 @@ class User extends BaseController
     public function loginShow()
     {
         if ($this->isAuthenticated()) {
-            $this->setMessage('warning', 'you are already loggedin');
+            $this->setMessage('warning', 'you are already logged in');
             return $this->redirect('/');
         }
 
@@ -87,36 +87,65 @@ class User extends BaseController
     /**
      * Shows register form.
      *
-     * @param $data
+     * @param $request
      *
      * @return string|\Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function registerAction($data)
+    public function registerAction($request)
     {
         $modelUser = new ModelUser();
+        $data = $request->get('data');
+        $error = false;
 
         if ($this->isAuthenticated()) {
             $this->setMessage('error', 'You are logged in');
-            return $this->redirect('/user/register');
+            $error = true;
         }
 
         if (!filter_var($data['model']['email'], FILTER_VALIDATE_EMAIL)) {
             $this->setMessage('error', 'That is not an Email');
-            return $this->redirect('/user/register');
+            $error = true;
         }
 
         if ($modelUser->findByName($data['model']['username'])) {
             $this->setMessage('error', 'Your account exists');
-            return $this->redirect('/user/register');
+            $error = true;
         }
 
-        $modelUser->resetObject();
-        $modelUser->username = $data['model']['username'];
-        $modelUser->password = md5($data['model']['password']);
-        $modelUser->email = $data['model']['email'];
-        $modelUser->save();
-        $this->setMessage('success', 'Your was created.');
-        return $this->twig()->render('user\registerAction.twig');
+        if ($modelUser->findByEmail($data['model']['email'])) {
+            $this->setMessage('error', 'Your Email is already registered');
+            $error = true;
+        }
+
+        if (empty($data['model']['password'])) {
+            $this->setMessage('error', 'You need to select a password');
+            $error = true;
+        }
+
+        if (empty($data['model']['email'])) {
+            $this->setMessage('error', 'You need to select an email');
+            $error = true;
+        }
+
+        if (empty($data['model']['username'])) {
+            $this->setMessage('error', 'You need to select an User Name');
+            $error = true;
+        }
+
+        if (!$error) {
+            $modelUser->resetObject();
+            $modelUser->username = $data['model']['username'];
+            $modelUser->password = md5($data['model']['password']);
+            $modelUser->email = $data['model']['email'];
+            $modelUser->save();
+            $this->setMessage('success', 'Your was created.');
+            return $this->twig()->render('user\registerAction.twig');
+        } else {
+            return $this->twig()->render('user\register.twig', array(
+                'data' => $data
+            ));
+        }
+
     }
 
     /**

@@ -23,17 +23,16 @@
         <h1>Your App</h1>
     </header>
 {% endblock %}
+
 <div id="messages">
-    {% for message in messages %}
-        <div class="alert alert-{{ message.mt }}">
-            {{ message.content }}
-        </div>
-    {% endfor %}
+    {{ render_messages() | raw }}
 </div>
+
 <div id="content">
     {% block content %}
     {% endblock %}
 </div>
+
 <footer id="footer">
     {% block footer %}
         42mate - 2014

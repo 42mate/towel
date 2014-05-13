@@ -36,7 +36,6 @@ require_once APP_FW_DIR . "/twig/twig_functions.inc.php";
 require_once APP_FW_DIR . "/twig/twig_filters.inc.php";
 
 //Process Session messages.
-$silex['twig']->addGlobal('messages', $silex['session']->get('messages'));
 $silex['twig']->addGlobal('fw_app', new \Towel\BaseApp());
 $silex['session']->set('messages', array());
 

@@ -36,40 +36,67 @@ class BaseModel extends \Towel\BaseApp
 
     /**
      * Gets the value of a field from the record.
+     * Warning : If the object have a field with the same name as the table field
+     *           the value of the object field will be returned, not the one on the table.
+     *           use getField to have the right value.
      *
      * @param $name
      * @return mixed
-     *
-     * @todo put a prefix like get_field_name to avoid name colissions
      *
      * @throws \Exception
      */
     public function __get($name)
     {
-        if (isset($this->fields[$name])) {
-            return $this->record[$name];
-        }
-        throw new \Exception('Not a valid Field for Get ' . $name);
+        return $this->getField($name);
     }
 
     /**
      * Sets the value of a field in the record.
      *
+     * Warning : If the object have a field with the same name as the table field
+     *           the value of the object field will be set, not the one on the table.
+     *           use setField to have the right value.
+     *
      * @param $name
      * @param $value
      * @return mixed
-     *
-     * @todo put a prefix like set_field_name to avoid name colissions
      *
      * @throws \Exception
      */
     public function __set($name, $value)
     {
+        return $this->setField($name, $value);
+    }
+
+    /**
+     * Sets a field to the record.
+     *
+     * @param $name
+     * @param $value
+     * @return mixed
+     *
+     * @throws \Exception
+     */
+    public function setField($name, $value) {
         if (isset($this->fields[$name])) {
             $this->isDirty = true;
             return $this->record[$name] = $value;
         }
         throw new \Exception('Not a valid Field for Set ' . $name);
+    }
+
+    /**
+     * Gets a Field from Record.
+     *
+     * @param $name
+     * @return mixed
+     * @throws \Exception
+     */
+    public function getField($name) {
+        if (isset($this->fields[$name])) {
+            return $this->record[$name];
+        }
+        throw new \Exception('Not a valid Field for Get ' . $name);
     }
 
     /**
@@ -187,13 +214,14 @@ class BaseModel extends \Towel\BaseApp
      * @param $sql
      * @param $params
      *
-     * @return $this or false
+     *  @return mixed : PDOStatement with results of false.
      */
     public function fetchOne($sql, $params)
     {
         $result = $this->db()->fetchAssoc($sql, $params);
 
         if (!empty($result)) {
+            $this->resetObject();
             $this->record = $result;
             return $this->record;
         }
@@ -206,7 +234,7 @@ class BaseModel extends \Towel\BaseApp
      *
      * @param $record
      *
-     * @return $this
+     * @return \Towel\MVC\Model\BaseModel
      */
     public function setRecord($record)
     {
@@ -259,7 +287,7 @@ class BaseModel extends \Towel\BaseApp
      *
      * @param String $id
      *
-     * @return \Towel\MVC\Model\BaseModel
+     *  @return mixed : PDOStatement with results or False.
      */
     public function findById($id)
     {
@@ -271,7 +299,7 @@ class BaseModel extends \Towel\BaseApp
     /**
      * Finds all records of a table.
      *
-     * @return mixed
+     * @return mixed : PDOStatement with results.
      */
     public function findAll()
     {
@@ -284,23 +312,24 @@ class BaseModel extends \Towel\BaseApp
      *
      * @param $field_name
      * @param $value
+     * @param $operator : A valid SQL operator for the comparison =, >, <, LIKE, IN, NOT IN. By default =
      *
-     * @return mixed
+     * @return mixed : PDOStatement with results.
      */
-    public function findByField($field_name, $value)
+    public function findByField($field_name, $value, $operator = '=')
     {
         $query = $this->db()->createQueryBuilder();
         $query->select('t.*')
             ->from($this->table, 't')
-            ->where("$field_name = ?")
+            ->where("$field_name $operator ?")
             ->setParameter(0, $value);
         return $query->execute();
     }
 
     /**
-     * Finds related records by foreing key.
+     * Finds related records by foreign key.
      *
-     * It will use the internal id of the record if is setted or
+     * It will use the internal id of the record if is set or
      * will use the given id to make the join.
      *
      * If the object is new you have to provide the id.

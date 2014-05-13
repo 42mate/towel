@@ -8,7 +8,9 @@
             </label>
 
             <div class='controls'>
-                <input id="data_name" type='text' name="data[model][username]" value='' required/>
+                <input id="data_name" type='text' name="data[model][username]"
+                       value='{% if data.model.username is defined %}{{ data.model.username  }}{% endif %}'
+                       required />
             </div>
         </div>
         <div class='control-group'>
@@ -17,7 +19,9 @@
             </label>
 
             <div class='controls'>
-                <input id="data_name" type='email' name="data[model][email]" value='' required/>
+                <input id="data_name" type='email' name="data[model][email]"
+                       value='{% if data.model.email is defined %}{{ data.model.email  }}{% endif %}'
+                       required />
             </div>
         </div>
         <div class='control-group'>
@@ -26,12 +30,12 @@
             </label>
 
             <div class='controls'>
-                <input id="data_password" type='password' name="data[model][password]" value=''/>
+                <input id="data_password" type='password' name="data[model][password]" value='' />
             </div>
         </div>
         <div class='buttons'>
             <div>
-                <input type="submit" value="Register" class="btn register"/>
+                <input type="submit" value="Register" class="btn register" />
             </div>
         </div>
     </form>
