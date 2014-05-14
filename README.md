@@ -10,7 +10,7 @@ Motivation
 * Almost all PHP Frameworks are very hard to learn for a newbie.
 * Several frameworks follows a lot of theorethical concepts but become very impractical.
 * We know that not all PHP Developers in the community are Computer Scientists.
-* We've worked with PHP for years, we love its practicity and we want to keep it that way.
+* We've worked with PHP for years, we love its practicing and we want to keep it that way.
 * We hate updates that break everything every six months, we want long term support.
 * NIH: Everybody has their own framework, we want our own.
 * We are NOT fans of Java. 
@@ -62,11 +62,15 @@ Installation
 
 Start by installing composer in any preferred folder if you don't have it already installed.
 
-```` curl -s https://getcomposer.org/installer | php````
+````
+    curl -s https://getcomposer.org/installer | php
+````
 
 After that, run composer to create Towel project's folder structure.
 
-``` php composer.phar create-project --no-interaction 42mate/towel-standard /path/to/towel-project-folder dev-master```
+```
+    php composer.phar create-project --no-interaction 42mate/towel-standard /path/to/towel-project-folder dev-master
+```
 
 After that you'll have a fully operational Towel instance to start coding your application.
 
