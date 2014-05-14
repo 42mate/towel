@@ -4,8 +4,8 @@ Towel
 Towel is a PHP MVC framework designed to be very very easy to learn. It is built on top of Silex and Doctrine Dbal
 and adds an extra layer to provide ease of integration and the capability to work like any MVC Framework.
 
-Motivation
-==========
+## Motivation
+
 
 * Almost all PHP Frameworks are very hard to learn for a newbie.
 * Several frameworks follows a lot of theorethical concepts but become very impractical.
@@ -16,31 +16,27 @@ Motivation
 * We are NOT fans of Java. 
 
 
-What we did
-=============
+## What we did
 
 * Silex is great but is hard to maintain if the project start to grow.
 * Dbal is great and solves 99.9 % of the database access problems.
 * We just added a couple of classes to mix these great tools and make it more easy and standard for use.
 
-What do we want ?
-==============
+## What do we want ?
 
 * A framework easy to teach to new PHP Developer
 * A framework that scale
 * A framework driven by the Database and not by an Schema
 * Keep it Simple, Stupid: not a lot of options, just the right options; not a lot of features, just the right features
 
-Why Towel
-=========
+## Why Towel
 
 A towel, The Hitchhiker's Guide to the Galaxy says, is about the most massively useful thing an interstellar hitchhiker can have.
 Always know where your towel is.
 
 More info [here](http://hitchhikers.wikia.com/wiki/Towel)
 
-What do I have to know ?
-========================
+## What do I have to know ?
 
 * PHP, basics and Object Oriented programming, Namespaces.
 * Composer, how it works, PSR-0 autoloader
@@ -48,8 +44,7 @@ What do I have to know ?
 * Dbal and of course SQL
 * Twig
 
-Requirements
-============
+## Requirements
 
 * Unix Environment
 * PHP 5.4 or higher
@@ -57,8 +52,7 @@ Requirements
 * A Web Server
 * MySQL (optional)
 
-Installation
-============
+## Installation
 
 Start by installing composer in any preferred folder if you don't have it already installed.
 
@@ -80,8 +74,7 @@ After that you might want to
 * Setup your application config.
 
 
-Contributions to Towel
-===========================
+## Contributions to Towel
 
 If want to contribute to Towel's core you'll need to do a few extra steps (no worries, they're not much).
 
@@ -105,8 +98,7 @@ After downloading towel-standard:
 
 7 - Start your contributions!
 
-Next Steps
-==========
+## Next Steps
 
 Read or documentation to learn how to create models, controllers, routes and views to create
 the most awesome apps that you ever imagine !
