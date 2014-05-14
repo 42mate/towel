@@ -1,41 +1,40 @@
 Towel
 =====
 
-Towel is a PHP MVC framework oriented to be very very easy to learn. Is built over the top of Silex and Doctrine Dbal
-and adds an extra layer to provide an easy integration and the capability to work like in any MVC Framework.
+Towel is a PHP MVC framework designed to be very very easy to learn. It is built on top of Silex and Doctrine Dbal
+and adds an extra layer to provide ease of integration and the capability to work like any MVC Framework.
 
 Motivation
 ==========
 
-* Mostly all PHP Frameworks are very hard to learn for a newbie.
-* Several frameworks follows the theory but are not practical.
-* We know that in the PHP Community not all the PHP Developers are Computer Scientists.
-* We work in PHP, we love the practicity of PHP and we want to keep it in that way.
-* We hate updates every six months, we want long term support.
-* Everybody has their own framework, we want our framework.
-* We are not fans of Java. 
+* Almost all PHP Frameworks are very hard to learn for a newbie.
+* Several frameworks follows a lot of theorethical concepts but become very impractical.
+* We know that not all PHP Developers in the community are Computer Scientists.
+* We've worked with PHP for years, we love its practicity and we want to keep it that way.
+* We hate updates that break everything every six months, we want long term support.
+* NIH: Everybody has their own framework, we want our own.
+* We are NOT fans of Java. 
 
 
-What we did ?
+What we did
 =============
 
 * Silex is great but is hard to maintain if the project start to grow.
 * Dbal is great and solves 99.9 % of the database access problems.
-* We just add and extra couple of classes to meld these great tools and make it more easy and standard for use.
+* We just added a couple of classes to mix these great tools and make it more easy and standard for use.
 
-What we want ?
+What do we want ?
 ==============
 
 * A framework easy to teach to new PHP Developer
-* A framework for scale
-* A framework driven by the Database and not for an Schema
-* Without several option to decide, only with the right options
-* Without several features, only the right features
+* A framework that scale
+* A framework driven by the Database and not by an Schema
+* Keep it Simple, Stupid: not a lot of options, just the right options; not a lot of features, just the right features
 
 What do I have to know ?
 ========================
 
-* PHP, basis and Object Oriented programming, Namespaces.
+* PHP, basics and Object Oriented programming, Namespaces.
 * Composer, how it works, PSR-0 autoloader
 * Silex
 * Dbal and of course SQL
