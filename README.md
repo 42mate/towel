@@ -34,10 +34,10 @@ What do we want ?
 Why Towel
 =========
 
-A towel, [The Hitchhiker's Guide to the Galaxy] says, is about the most massively useful thing an interstellar hitchhiker can have.
+A towel, The Hitchhiker's Guide to the Galaxy says, is about the most massively useful thing an interstellar hitchhiker can have.
 Always know where your towel is.
 
-[http://hitchhikers.wikia.com/wiki/Towel](http://hitchhikers.wikia.com/wiki/Towel)
+More info [here](http://hitchhikers.wikia.com/wiki/Towel)
 
 What do I have to know ?
 ========================
