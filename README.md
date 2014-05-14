@@ -31,6 +31,14 @@ What do we want ?
 * A framework driven by the Database and not by an Schema
 * Keep it Simple, Stupid: not a lot of options, just the right options; not a lot of features, just the right features
 
+Why Towel
+=========
+
+A towel, [The Hitchhiker's Guide to the Galaxy] says, is about the most massively useful thing an interstellar hitchhiker can have.
+Always know where your towel is.
+
+[http://hitchhikers.wikia.com/wiki/Towel](http://hitchhikers.wikia.com/wiki/Towel)
+
 What do I have to know ?
 ========================
 
@@ -49,18 +57,49 @@ Requirements
 * A Web Server
 * MySQL (optional)
 
-Instalation
-===========
+Installation
+============
 
-Download the Sandbox from [here](http://www.42mate.com/sites/42mate.com/files/download/towel/latest.tar.gz).
+Start by installing composer in any preferred folder if you don't have it already installed.
 
-Uncompress the Sandbox.
+```` curl -s https://getcomposer.org/installer | php````
 
-Setup a Virtual Host with the public dir in web inside of the Sandbox.
+After that, run composer to create Towel project's folder structure.
 
-Run composer update to install all packages.
+``` php composer.phar create-project --no-interaction 42mate/towel-standard /path/to/towel-project-folder dev-master```
 
-Go to your browser and checkout the welcome page.
+After that you'll have a fully operational Towel instance to start coding your application.
+
+After that you might want to
+
+* Configure your virtual host to the web folder.
+* Setup your application config.
+
+
+Contributions to Towel
+===========================
+
+If want to contribute to Towel's core you'll need to do a few extra steps (no worries, they're not much).
+
+After downloading towel-standard:
+
+1 - Edit composer.json located at the root folder.
+
+   1.1 - Delete the line: "42mate/towel": "xxx" (and the previous "," if "42mate/towel": "xxxx" was the last item in the "require" section)
+
+   1.2 - Add: "Towel": "vendor/42mate/towel/src" in the "psr-0" section
+
+2 - Go to /path/to/towel-project-folder and run php composer.phar update, let composer do its magic.
+
+3 - Fork Towel repository with your git account.
+
+4 - Go to /path/to/towel-project-folder/vendor and run it
+
+  ```git clone git@github.com:YourUserName/towel.git 42mate/towel```
+
+6 - After cloning Towel core, you only need to setup your favourite http server to serve pages from Towel's application.
+
+7 - Start your contributions!
 
 Next Steps
 ==========
@@ -68,9 +107,3 @@ Next Steps
 Read or documentation to learn how to create models, controllers, routes and views to create
 the most awesome apps that you ever imagine !
 
-Why Towel
-=========
-
-A towel, [The Hitchhiker's Guide to the Galaxy] says, is about the most massively useful thing an interstellar hitchhiker can have. Always know where your towel is.
-
-[http://hitchhikers.wikia.com/wiki/Towel](http://hitchhikers.wikia.com/wiki/Towel)
