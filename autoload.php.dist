@@ -1,0 +1,5 @@
+<?php
+
+$loader = require_once dirname(__FILE__) . '/../../autoload.php';
+require_once dirname(__FILE__) . '/src/Towel/config/config.sample.php';
+return $loader;

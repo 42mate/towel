@@ -1,16 +1,17 @@
 <?php
 
+$appName = basename(dirname(dirname(__FILE__)));
 global $appConfig;
 
+define('APP_NAME', $appName);
 define('APP_ROOT_DIR', dirname(__FILE__) . '/../..');
 define('APP_WEB_DIR', APP_ROOT_DIR . '/web');
 define('APP_UPLOADS_DIR', APP_WEB_DIR . '/uploads');
 define('APP_LIB_DIR', APP_ROOT_DIR . '/vendor');
 define('APP_FW_DIR', APP_ROOT_DIR . '/vendor/42mate/towel/src/Towel');
 define('APP_CONFIG_DIR', dirname(__FILE__));
-define('APP_DIR', dirname(__FILE__) . '/../[[YOURAPPNAME]]');
+define('APP_DIR', dirname(__FILE__) . '/../' . APP_NAME);
 define('APP_BASE_URL', '/');
-define('APP_SYS_EMAIL', 'your@email.com');
 
 $appConfig = array(
     'doctrine' => array(

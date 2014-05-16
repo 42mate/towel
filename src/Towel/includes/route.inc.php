@@ -1,51 +1,6 @@
 <?php
 
 /**
- * Yes, this is a generic global function files. As dirty as it sounds you'll love it.
- *
- * Do not use this file to create specific logic, just for general propose functions.
- */
-
-/**
- * Generates a random passoword.
- *
- * @param int $length
- * @param int $strength
- *
- * @return string
- */
-function generatePassword($length = 9, $strength = 0)
-{
-    $vowels = 'aeuy';
-    $consonants = 'bdghjmnpqrstvz';
-    if ($strength & 1) {
-        $consonants .= 'BDGHJLMNPQRSTVWXZ';
-    }
-    if ($strength & 2) {
-        $vowels .= "AEUY";
-    }
-    if ($strength & 4) {
-        $consonants .= '23456789';
-    }
-    if ($strength & 8) {
-        $consonants .= '@#$%';
-    }
-
-    $password = '';
-    $alt = time() % 2;
-    for ($i = 0; $i < $length; $i++) {
-        if ($alt == 1) {
-            $password .= $consonants[(rand() % strlen($consonants))];
-            $alt = 0;
-        } else {
-            $password .= $vowels[(rand() % strlen($vowels))];
-            $alt = 1;
-        }
-    }
-    return $password;
-}
-
-/**
  * Ads a route in the application.
  *
  * @param $method : GET, POST, PUT, DELETE
@@ -91,23 +46,45 @@ function add_route($method, $route, $options = array())
 }
 
 /**
- * Returns the App.
+ * Returns a full url with a given path.
  *
- * @return \Towel\BaseApp
+ * @param $route
+ * @param array $parameters
+ * @param bool $absolute
+ *
+ * @return string : Url.
  */
-function get_app()
+function url($route, $parameters = array(), $absolute = false)
 {
-    global $appConfig;
-    $appClass = $appConfig['class_map']['app'];
-    return new $appClass();
+    if ($route[0] == '/') { //Literal route, checks if need to include a prefix.
+        $url_prefix = '';
+        if (count(APP_BASE_URL) > 0) {
+            $url_prefix = APP_BASE_URL;
+        }
+        return $url_prefix . $route;
+    }
+
+    $towel = get_app(); //Named route, will generate the url.
+    if ($absolute) {
+        $return = $towel->url($route, $parameters);
+    } else {
+        $return = $towel->path($route, $parameters);
+    }
+
+    return $return;
 }
 
 /**
- * Returns a Base controller.
+ * Returns the Url for an upload images
  *
- * @return \Towel\MVC\Controller\BaseController
+ * @param $pic : Path from the upload dir.
+ * @return string : Full url to the image if exists, empty if not.
+ *
  */
-function get_base_controller()
+function url_image($pic)
 {
-    return new \Towel\MVC\Controller\BaseController();
+    if (!empty($pic) && file_exists(APP_UPLOADS_DIR . '/' . $pic)) {
+        return APP_BASE_URL . 'uploads/' . $pic;
+    }
+    return '';
 }
