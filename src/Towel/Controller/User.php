@@ -1,8 +1,8 @@
 <?php
 
-namespace Towel\MVC\Controller;
+namespace Towel\Controller;
 
-use \Towel\MVC\Model\User as ModelUser;
+use \Towel\Model\User as ModelUser;
 
 class User extends BaseController
 {

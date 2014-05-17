@@ -126,22 +126,7 @@ class BaseApp
      * @return object
      */
     public function getInstance($classMapName, $args = array(), $singleton = false) {
-        static $objects = array();
-
-        if (empty($objects[md5($classMapName)])) {
-            $config = $this->config();
-            $className = $config['class_map'][$classMapName];
-            $class = new \ReflectionClass($className);
-            $object = $class->newInstance($args);
-
-            if ($singleton) {
-                $objects[$classMapName] = $object;
-            }
-        } else {
-            $object = $objects[md5($classMapName)];
-        }
-
-        return $object;
+        return get_instance($classMapName, $args, $singleton);
     }
 
     /**

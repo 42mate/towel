@@ -1,16 +1,23 @@
 <?php
 
+$appName = basename(dirname(dirname(__FILE__)));
 global $appConfig;
 
-define('APP_ROOT_DIR', dirname(__FILE__) . '/../..');
+define('APP_NAME', $appName);
+
+if (APP_NAME == 'Towel') {
+    define('APP_ROOT_DIR', dirname(__FILE__) . '/../../../../../..');
+} else {
+    define('APP_ROOT_DIR', dirname(__FILE__) . '/../../..');
+}
+
 define('APP_WEB_DIR', APP_ROOT_DIR . '/web');
 define('APP_UPLOADS_DIR', APP_WEB_DIR . '/uploads');
 define('APP_LIB_DIR', APP_ROOT_DIR . '/vendor');
 define('APP_FW_DIR', APP_ROOT_DIR . '/vendor/42mate/towel/src/Towel');
 define('APP_CONFIG_DIR', dirname(__FILE__));
-define('APP_DIR', dirname(__FILE__) . '/../[[YOURAPPNAME]]');
+define('APP_DIR', dirname(__FILE__) . '/../');
 define('APP_BASE_URL', '/');
-define('APP_SYS_EMAIL', 'your@email.com');
 
 $appConfig = array(
     'doctrine' => array(
@@ -39,7 +46,7 @@ $appConfig = array(
     'twig' => array(
         'twig.path' => array(
             APP_DIR . '/Views',
-            APP_FW_DIR . '/MVC/Views'
+            APP_FW_DIR . '/Views'
         )
     ),
 
@@ -51,8 +58,8 @@ $appConfig = array(
 
     'class_map' => array(
         'app' => '\Towel\BaseApp',
-        'user_model' => '\Frontend\Model\User',
-        'user_controller' => '\Towel\MVC\Controller\User',
+        'user_model' => '\Towel\Model\User',
+        'user_controller' => '\Towel\Controller\User',
     ),
 
     'debug' => true,

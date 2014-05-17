@@ -1,6 +1,6 @@
 <?php
 
-namespace Towel\MVC\Controller;
+namespace Towel\Controller;
 
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\Response;
@@ -130,8 +130,7 @@ class BaseController extends \Towel\BaseApp
         $relativeFilePath = $relativePath . '/' . $newFileName;
         $dstPath = APP_UPLOADS_DIR . '/' . $relativePath;
         $file->move($dstPath, $newFileName);
-        $pic = new \Towel\MVC\Model\Pic();
-
+        $pic = new \Towel\Model\Pic();
 
         $pic->object_id = $id;
         $pic->object_type = $table;

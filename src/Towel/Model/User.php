@@ -1,6 +1,6 @@
 <?php
 
-namespace Towel\MVC\Model;
+namespace Towel\Model;
 
 class User extends BaseModel
 {

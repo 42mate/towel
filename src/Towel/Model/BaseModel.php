@@ -1,6 +1,6 @@
 <?php
 
-namespace Towel\MVC\Model;
+namespace Towel\Model;
 
 class BaseModel extends \Towel\BaseApp
 {
@@ -234,7 +234,7 @@ class BaseModel extends \Towel\BaseApp
      *
      * @param $record
      *
-     * @return \Towel\MVC\Model\BaseModel
+     * @return \Towel\Model\BaseModel
      */
     public function setRecord($record)
     {
