@@ -17,7 +17,7 @@
  */
 function add_route($method, $route, $options = array())
 {
-    global $silex;
+    $towel = get_app();
 
     if (!empty($options['controller']) && !empty($options['action'])) {
         $action = array(
@@ -27,7 +27,7 @@ function add_route($method, $route, $options = array())
         throw new Exception('Needs an action');
     }
 
-    $route = $silex->$method($route, function (\Symfony\Component\HttpFoundation\Request $request) use ($action, $options) {
+    $route = $towel->silex()->$method($route, function (\Symfony\Component\HttpFoundation\Request $request) use ($action, $options) {
         $controller = get_base_controller();
 
         if (!empty($options['secure']) && $options['secure'] == true) {

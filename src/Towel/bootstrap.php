@@ -19,7 +19,7 @@ $silex->register(new Silex\Provider\TwigServiceProvider(), $appConfig['twig']);
 $silex->register(new Silex\Provider\SessionServiceProvider(), $appConfig['sessions']);
 $silex->register(new Silex\Provider\UrlGeneratorServiceProvider());
 
-//Init Routes
+//Init Functions
 foreach (glob(APP_FW_DIR . "/includes/*.inc.php") as $includeFiles) {
     require_once "$includeFiles";
 }
