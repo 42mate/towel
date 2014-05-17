@@ -1,0 +1,18 @@
+{% extends "user/master.twig" %}
+
+{% block content %}
+    <form action='/user/recover' method="POST" class='login form-horizontal'>
+        <div class='control-group'>
+            <label class="control-label">
+                Email
+            </label>
+
+            <div class='controls'>
+                <input id="data_name" type='email' name="data[model][email]" value='' required />
+            </div>
+        </div>
+        <div class='buttons'>
+            <input type="submit" class="btn recover-pass" value="Recover Password" />
+        </div>
+    </form>
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends "master.twig" %}
+
+{% block header_css %}
+    {{ parent() }}
+    <link href="/assets/frontend/user/css/user.css" rel="stylesheet" media="screen">
+{% endblock %}
+
+{% block header_js %}
+    {{ parent() }}
+    <script src="/assets/frontend/user/js/user.js"></script>
+{% endblock %}
