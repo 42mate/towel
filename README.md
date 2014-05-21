@@ -97,7 +97,7 @@ After downloading towel-standard:
   Add the upstream repository as a remote (for update your fork).
 
    ```
-     cd towel-standard
+     cd towel
      git remote add upstream git://github.com/42mate/towel.git
    ```
   
