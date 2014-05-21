@@ -92,11 +92,36 @@ After downloading towel-standard:
 
 4 - Go to /path/to/towel-project-folder/vendor and run it
 
-  ```git clone git@github.com:YourUserName/towel.git 42mate/towel```
+  ```  git clone git@github.com:USERNAME/towel.git ```
+  
+  Add the upstream repository as a remote (for update your fork).
 
+   ```
+     cd towel-standard
+     git remote add upstream git://github.com/42mate/towel.git
+   ```
+  
 6 - After cloning Towel core, you only need to setup your favourite http server to serve pages from Towel's application.
 
 7 - Start your contributions!
+
+## Update your fork ##
+
+To update your fork with the main repo do the following
+
+```
+  cd vendor/42mate/towel
+  git checkout master
+  git fetch upstream
+  git merge upstream/master
+```
+
+Then you'll have the latest main repo changes in your fork, if everything works you can push to your fork and then create a pull request.
+
+```
+  git commit .... your params ...
+  git push origin master
+```
 
 ## Next Steps
 
