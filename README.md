@@ -98,7 +98,7 @@ After downloading towel-standard:
 
    ```
      cd towel
-     git remote add upstream git://github.com/42mate/towel.git
+     git remote add upstream git://github.com/42mate/towel.git 42mate
    ```
   
 6 - After cloning Towel core, you only need to setup your favourite http server to serve pages from Towel's application.
