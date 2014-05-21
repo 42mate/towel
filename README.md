@@ -86,7 +86,7 @@ After downloading towel-standard:
 
    1.2 - Add: "Towel": "vendor/42mate/towel/src" in the "psr-0" section
 
-2 - Go to /path/to/towel-project-folder and run php composer.phar update, let composer do its magic.
+2 - Go to /path/to/towel-project-folder, run ./install-composer.sh and after that, run php composer.phar update, let composer do its magic.
 
 3 - Fork Towel repository with your git account.
 
