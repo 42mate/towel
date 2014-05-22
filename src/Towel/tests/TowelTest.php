@@ -40,4 +40,5 @@ class TowelTest extends \PHPUnit_Framework_TestCase {
         $this->assertFalse(($towel === $towel4), 'get_instance is not returning different instances');
     }
 
+
 }
