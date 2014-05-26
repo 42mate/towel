@@ -33,8 +33,7 @@
         "symfony/locale": "~2.3",
         "symfony/translation": "~2.3",
         "symfony/twig-bridge": "~2.3",
-        "doctrine/dbal": ">=2.2.0,<2.4.0-dev",
-        "knplabs/console-service-provider": "dev-master"
+        "doctrine/dbal": ">=2.2.0,<2.4.0-dev"
     },
     "autoload": {
         "psr-0": {
