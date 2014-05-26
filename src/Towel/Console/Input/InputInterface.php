@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: jonatan
- * Date: 5/25/14
- * Time: 6:20 PM
- */
 
 namespace Towel\Console\Input;
 
