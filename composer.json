@@ -4,11 +4,21 @@
     "keywords": ["Silex", "Dbal", "Twig", "MVC", "PHP", "Easy"],
     "homepage": "https://github.com/42mate/towel",
     "type": "library",
-    "license": "GPL",
+    "license": "MIT",
     "authors": [
         {
             "name": "Casiva Agustin",
             "email": "agustin@42mate.com",
+            "homepage": "http://www.42mate.com"
+        },
+        {
+            "name": "Pintos Ezequiel",
+            "email": "ezequiel@42mate.com",
+            "homepage": "http://www.42mate.com"
+        },
+        {
+            "name": "Frank Jonatán",
+            "email": "jonatan@42mate.com",
             "homepage": "http://www.42mate.com"
         }
     ],

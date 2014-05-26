@@ -17,10 +17,12 @@ $app = get_app();
  *
  */
 $url = new Twig_SimpleFunction('url', function ($route, $parameters = array(), $absolute = false) {
+
     return url($route, $parameters, $absolute);
 });
 
 $app->twig()->addFunction($url);
+
 
 /**
  * Renders all messages. Use this for global messages.

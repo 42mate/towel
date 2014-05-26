@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @todo create some tools for the console. in order to be executed inside of the
+ * @todo create some tools for the Console. in order to be executed inside of the
  * application dir to read the configuration of the app and apply tasks.
  */
 
@@ -18,11 +18,11 @@ use Symfony\Component\Console\Output\OutputInterface;
 $console = new Application('FrameworkTasks', '0.1');
 
 //Register a command to run from the command line
-//Our command will be started with "./console.php sync"
+//Our command will be started with "./Console.php sync"
 $console->register('action')
     ->setDefinition(array())
     ->setDescription('Some Action')
-    ->setHelp('Usage: <info>./php app/console/action.php</info>')
+    ->setHelp('Usage: <info>./php app/Console/action.php</info>')
     ->setCode(
         function (InputInterface $input, OutputInterface $output) use ($app) {
             $output->write("Do Something");
