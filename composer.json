@@ -5,6 +5,7 @@
     "homepage": "https://github.com/42mate/towel",
     "type": "library",
     "license": "MIT",
+    "minimum-stability" : "dev",
     "authors": [
         {
             "name": "Casiva Agustin",
