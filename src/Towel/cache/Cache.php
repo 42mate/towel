@@ -9,9 +9,9 @@
 namespace Towel\cache;
 
 
-class Cache extends \Memcache implements Towel\cache\CacheInterface
+class Cache
 {
-    public function __construct(Towel\cache\CacheInterface $cacheDriver)
+    public function __construct(\Towel\cache\CacheInterface $cacheDriver)
     {
         $this->cacheDriver = $cacheDriver;
     }
@@ -23,14 +23,21 @@ class Cache extends \Memcache implements Towel\cache\CacheInterface
 
     public function set($key, $value, $expire = null)
     {
-        if (null === $expire) {
-            $expire = time() + 3600 * 30; // 30 days by default (?)
-        }
-        $this->cacheDriver->add($key, $value, $expire);
+        $this->cacheDriver->set($key, $value, $expire);
     }
 
     public function clear()
     {
         $this->cacheDriver->clear();
+    }
+
+    public function delete($key)
+    {
+        $this->cacheDriver->delete($key);
+    }
+
+    public function getDriverInstance()
+    {
+        return $this->cacheDriver;
     }
 }

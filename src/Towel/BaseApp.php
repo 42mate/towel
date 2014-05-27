@@ -2,6 +2,8 @@
 
 namespace Towel;
 
+use Towel\cache\Cache as TowelCache;
+
 class BaseApp
 {
 
@@ -9,7 +11,7 @@ class BaseApp
     public $silex;
     public $appConfig;
     static $instance = null;
-
+    static $cache = null;
     /**
      * Makes available app and config as part of the
      * object to avoid the use of globals.
@@ -175,6 +177,39 @@ class BaseApp
     public function url($route, $parameters = array())
     {
         return $this->silex['url_generator']->generate($route, $parameters, \Symfony\Component\Routing\Generator\UrlGeneratorInterface::ABSOLUTE_URL);
+    }
+
+    /**
+     * Instantiate Cache driver
+     * @return Towel\cache\CacheInterface
+     */
+    public function getCache()
+    {
+        if (null === self::$cache) {
+            if (!empty($this->appConfig['cache']['driver'])) {
+                // Options definition.
+                if (empty($this->appConfig['cache']['options'])) {
+                    $options = array();
+                } else {
+                    $options = $this->appConfig['cache']['options'];
+                }
+
+                // Driver definition.
+                if ('memcached' !== $this->appConfig['cache']['driver']) {
+                    $className = $this->appConfig['cache']['driver'];
+                } else {
+                    $className = '\Towel\cache\TowelMemcached';
+                }
+
+                // Driver instantiation
+                $cacheDriver = new $className();
+                $cacheDriver->setOptions($options);
+            }
+
+            self::$cache = new TowelCache($cacheDriver);
+        }
+
+        return self::$cache;
     }
 
 }

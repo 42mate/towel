@@ -10,7 +10,9 @@ namespace Towel\cache;
 
 
 interface CacheInterface {
-    public function get();
+    public function get($key);
     public function set($key, $value, $expire = null);
     public function clear();
+    public function delete($key);
+    public function setOptions($options);
 }

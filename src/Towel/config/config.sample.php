@@ -10,7 +10,7 @@ if (APP_NAME == 'Towel') {
 } else {
     define('APP_ROOT_DIR', dirname(__FILE__) . '/../../..');
 }
-
+define('APP_CACHE_DIR', APP_ROOT_DIR . '/cache/' . APP_NAME);
 define('APP_WEB_DIR', APP_ROOT_DIR . '/web');
 define('APP_UPLOADS_DIR', APP_WEB_DIR . '/uploads');
 define('APP_LIB_DIR', APP_ROOT_DIR . '/vendor');
@@ -60,6 +60,15 @@ $appConfig = array(
         'app' => '\Towel\BaseApp',
         'user_model' => '\Towel\Model\User',
         'user_controller' => '\Towel\Controller\User',
+    ),
+
+    'cache' => array(
+        'driver'  => 'memcached',
+        'options' => array(
+            'hosts' => array(
+                '127.0.0.1' => 11211
+            ),
+        ),
     ),
 
     'debug' => true,
