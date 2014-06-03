@@ -14,6 +14,13 @@ define('MESSAGE_WARNING', 'warning');
 global $silex;
 $silex = new Silex\Application();
 $silex['debug'] = $appConfig['debug'];
+$appConfig['twig']['twig.options']['cache'] = (!empty($appConfig['twig']['twig.options']['cache']))
+                                              ? $appConfig['twig']['twig.options']['cache']
+                                              : APP_CACHE_DIR . '/twig';
+$appConfig['twig']['twig.options']['autor_reload'] = (!empty($appConfig['twig']['twig.options']['autor_reload']))
+                                                     ? $appConfig['twig']['twig.options']['autor_reload']
+                                                     : $appConfig['debug'];
+
 $silex->register(new Silex\Provider\DoctrineServiceProvider(), $appConfig['doctrine']);
 $silex->register(new Silex\Provider\TwigServiceProvider(), $appConfig['twig']);
 $silex->register(new Silex\Provider\SessionServiceProvider(), $appConfig['sessions']);
