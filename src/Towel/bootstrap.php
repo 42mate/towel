@@ -30,10 +30,10 @@ foreach (glob(APP_CONFIG_DIR . "/routes/*Routes.php") as $routeFile) {
 }
 
 //Init Twig Functions
-require_once APP_FW_DIR . "/twig/twig_functions.inc.php";
+require_once APP_FW_DIR . "/includes/twig/twig_functions.inc.php";
 
 //Init Twig Filters
-require_once APP_FW_DIR . "/twig/twig_filters.inc.php";
+require_once APP_FW_DIR . "/includes/twig/twig_filters.inc.php";
 
 //Process Session messages.
 $silex['twig']->addGlobal('fw_app', new \Towel\BaseApp());
