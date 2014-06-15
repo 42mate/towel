@@ -7,8 +7,8 @@ use Doctrine\DBAL\Driver\PDOStatement;
 class BaseModel extends \Towel\BaseApp
 {
     public $id_name = 'id';
-    public static $fields;
-    public static $fks;
+    public $fields;
+    public $fks;
     public $table;
     public $record;
     public $isDirty = false;
@@ -25,19 +25,19 @@ class BaseModel extends \Towel\BaseApp
      */
     public function discoverFields()
     {
-        if (!empty(self::$fields)) {
+        if (!empty($this->fields)) {
             return; // Already configured.
         }
 
         $sm = $this->db()->getSchemaManager();
         $columns = $sm->listTableColumns($this->table);
         foreach ($columns as $column) {
-            self::$fields[$column->getName()] = array(
+            $this->fields[$column->getName()] = array(
                 'name' => $column->getName(),
                 'type' => $column->getType(),
             );
         }
-        self::$fks = $sm->listTableForeignKeys($this->table);
+        $this->fks = $sm->listTableForeignKeys($this->table);
     }
 
     /**
@@ -84,7 +84,7 @@ class BaseModel extends \Towel\BaseApp
      * @throws \Exception
      */
     public function setField($name, $value) {
-        if (isset(self::$fields[$name])) {
+        if (isset($this->fields[$name])) {
             $this->isDirty = true;
             return $this->record[$name] = $value;
         }
@@ -99,7 +99,7 @@ class BaseModel extends \Towel\BaseApp
      * @throws \Exception
      */
     public function getField($name) {
-        if (isset(self::$fields[$name])) {
+        if (isset($this->fields[$name])) {
             return $this->record[$name];
         }
         throw new \Exception('Not a valid Field for Get ' . $name);
@@ -235,7 +235,7 @@ class BaseModel extends \Towel\BaseApp
     {
         $this->resetObject();
         $newRecord = array();
-        foreach (self::$fields as $field_name => $field) {
+        foreach ($this->fields as $field_name => $field) {
             if (!empty($record[$field_name])) {
                 $newRecord[$field_name] = $record[$field_name];
             }
@@ -258,7 +258,7 @@ class BaseModel extends \Towel\BaseApp
         if ($this->isNew()) {
             throw new \Exception('Can not merge, is new');
         }
-        foreach (self::$fields as $field_name => $field) {
+        foreach ($this->fields as $field_name => $field) {
             if (!empty($record[$field_name])) {
                 $this->record[$field_name] = $record[$field_name];
             }
@@ -403,7 +403,7 @@ class BaseModel extends \Towel\BaseApp
             $field_names = array($field_names);
         }
 
-        foreach (self::$fks as $fk) {
+        foreach ($this->fks as $fk) {
             $localFieldsNames = $fk->getLocalColumns();
             if ($field_names == $localFieldsNames) {
                 return $this->join(
