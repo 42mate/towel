@@ -1,0 +1,1 @@
+CREATE TABLE myTable(id integer primary key, name varchar(30));

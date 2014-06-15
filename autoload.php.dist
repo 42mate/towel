@@ -2,5 +2,6 @@
 
 $loader = require_once dirname(__FILE__) . '/../../autoload.php';
 require_once dirname(__FILE__) . '/src/Towel/config/config.sample.php';
+require_once dirname(__FILE__) . '/src/Towel/config/config.test.php';
 require_once dirname(__FILE__) . '/src/Towel/bootstrap.php';
 return $loader;
