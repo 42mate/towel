@@ -73,7 +73,6 @@ $post->created = time();
 $post->body = "the post content";
 $post->uid = $user->id
 $post->save();
-
 ```
 
 Update the Record
@@ -84,9 +83,7 @@ Update the Record
 //$post is an instance of a previously created object or retrieved from the database.
 $post->title = "change the title";
 $post->save();
-
 ```
-
 
 Delete the Record
 -----------------
@@ -94,7 +91,6 @@ Delete the Record
 ```php
 //$post is an instance of a previously created object or retrieved from the database.
 $post->delete();
-
 ```
 
 ```php
