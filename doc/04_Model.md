@@ -41,7 +41,6 @@ To create a Model object you have to define a class that extends from Towel\Base
 your app model folder.
 
 ```php
-
 namespace Application\YourAppName\Model;
 
 use \Towel\Model\BaseModel;
@@ -50,8 +49,6 @@ class Post extends BaseModel
 {
     public $table = 'Post';
 }
-
-
 ```
 
 The only requirement for this class is to have the table name defined. For this sample the table
@@ -66,7 +63,6 @@ Create a new Record
 -------------------
 
 ```php
-
 $post = new Post();
 $post->title = "some title";
 $post->created = time();
