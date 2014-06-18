@@ -124,11 +124,11 @@ Joins with other Tables
 -----------------------
 
 
-# 1 to Many Relations
+### 1 to Many Relations
 
-# Many to Many Relations
+### Many to Many Relations
 
-# Implementing custom Queries
+### Implementing custom Queries
 
-# The Hydrator
+## The Hydrator
 
