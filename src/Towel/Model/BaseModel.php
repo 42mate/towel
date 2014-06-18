@@ -2,15 +2,18 @@
 
 namespace Towel\Model;
 
+use Doctrine\DBAL\Driver\PDOStatement;
+
 class BaseModel extends \Towel\BaseApp
 {
-    public $id_name = 'id';
-    public $record;
-    public $fields;
-    public $fks;
-    public $table;
-    public $isDirty = false;
-    public $isDeleted = false;
+    public $id_name = 'id';   //Field name of the Primary Key.
+    public $fields;           //Table Fields, is going to be discovered on object creation.
+    public $fks;              //Foreign Keys.
+    public $table;            //Table Name in the Database, must be definend in the child.
+    public $record;           //Keeps the Database Record, only fields defined in the table are allowed.
+    public $fetchedRecord;    //Keeps the last fetched records from a query, all fetched fields.
+    public $isDirty = false;  //True if some field was modified with setField.
+    public $isDeleted = false;//True if the record have been deleted.
 
     public function __construct()
     {
@@ -23,6 +26,10 @@ class BaseModel extends \Towel\BaseApp
      */
     public function discoverFields()
     {
+        if (!empty($this->fields)) {
+            return; // Already configured.
+        }
+
         $sm = $this->db()->getSchemaManager();
         $columns = $sm->listTableColumns($this->table);
         foreach ($columns as $column) {
@@ -88,14 +95,23 @@ class BaseModel extends \Towel\BaseApp
     /**
      * Gets a Field from Record.
      *
+     * If the field is not in record will check in fetchedRecord, fetched record may have
+     * some fields from the last query that you will need, like related records.
+     *
      * @param $name
      * @return mixed
      * @throws \Exception
      */
     public function getField($name) {
+
         if (isset($this->fields[$name])) {
             return $this->record[$name];
         }
+
+        if (isset($this->fetchedRecord[$name])) {
+            return $this->fetchedRecord[$name];
+        }
+
         throw new \Exception('Not a valid Field for Get ' . $name);
     }
 
@@ -159,6 +175,19 @@ class BaseModel extends \Towel\BaseApp
     }
 
     /**
+     * Deletes all records in table.
+     *
+     * @return $this
+     *
+     * @throws \Exception
+     */
+    public function deleteAll()
+    {
+        $this->db()->executeQuery("DELETE FROM {$this->table}");
+        return $this;
+    }
+
+    /**
      * Returns the Id or False if is not setted.
      *
      * @return Boolean True or False
@@ -206,30 +235,6 @@ class BaseModel extends \Towel\BaseApp
     }
 
     /**
-     * Fetchs one record with the given query.
-     *
-     * If success sets the record in the current object and return $this.
-     * If fails return false.
-     *
-     * @param $sql
-     * @param $params
-     *
-     *  @return mixed : PDOStatement with results of false.
-     */
-    public function fetchOne($sql, $params)
-    {
-        $result = $this->db()->fetchAssoc($sql, $params);
-
-        if (!empty($result)) {
-            $this->resetObject();
-            $this->record = $result;
-            return $this->record;
-        }
-
-        return false;
-    }
-
-    /**
      * Sets the internal record with a new record.
      *
      * @param $record
@@ -246,6 +251,7 @@ class BaseModel extends \Towel\BaseApp
             }
         }
         $this->record = $newRecord;
+        $this->fetchedRecord = $record;
         return $this;
     }
 
@@ -283,17 +289,47 @@ class BaseModel extends \Towel\BaseApp
     }
 
     /**
-     * Finds a Record by Id.
+     * Fetchs one record with the given query.
+     *
+     * If success sets the record in the current object and return $this.
+     * If fails return false.
+     *
+     * @param $sql
+     * @param $params
+     *
+     * @return The current instance with the record setted internally.
+     */
+    public function fetchOne($sql, $params)
+    {
+        $result = $this->db()->fetchAssoc($sql, $params);
+
+        if (!empty($result)) {
+            $this->setRecord($result);
+            return $this;
+        }
+
+        return false;
+    }
+
+    /**
+     * Finds a Record by Id. Returns the record array and sets the internal
+     * record if you want to use the record object.
      *
      * @param String $id
      *
-     *  @return mixed : PDOStatement with results or False.
+     *  @return The current instance with the record setted internally.
      */
     public function findById($id)
     {
-        return $this->fetchOne("SELECT * from {$this->table} WHERE {$this->id_name} = ?",
+        $result = $this->fetchOne("SELECT * from {$this->table} WHERE {$this->id_name} = ?",
             array($id)
         );
+
+        if ($result) {
+            return $result;
+        }
+
+        return false;
     }
 
     /**
@@ -301,10 +337,22 @@ class BaseModel extends \Towel\BaseApp
      *
      * @return mixed : PDOStatement with results.
      */
-    public function findAll()
+    public function findAllWithoutFetch()
     {
         $results = $this->db()->executeQuery("SELECT * FROM {$this->table}");
         return $results;
+    }
+
+    /**
+     * Finds all records of a table.
+     *
+     * @return mixed : Array with results.
+     */
+    public function findAll()
+    {
+        $results = $this->findAllWithoutFetch();
+        $return = $this->hydrate($results);
+        return $return;
     }
 
     /**
@@ -316,7 +364,7 @@ class BaseModel extends \Towel\BaseApp
      *
      * @return mixed : PDOStatement with results.
      */
-    public function findByField($field_name, $value, $operator = '=')
+    public function findByFieldWithoutFetch($field_name, $value, $operator = '=')
     {
         $query = $this->db()->createQueryBuilder();
         $query->select('t.*')
@@ -324,6 +372,23 @@ class BaseModel extends \Towel\BaseApp
             ->where("$field_name $operator ?")
             ->setParameter(0, $value);
         return $query->execute();
+    }
+
+    /**
+     * Finds into table by any given field.
+     *
+     * @param $field_name
+     * @param $value
+     * @param $operator : A valid SQL operator for the comparison =, >, <, LIKE, IN, NOT IN. By default =
+     *
+     * @return Array of Model Objects
+    .
+     */
+    public function findByField($field_name, $value, $operator = '=')
+    {
+        $results = $this->findByFieldWithoutFetch($field_name, $value, $operator);
+        $return = $this->hydrate($results);
+        return $return;
     }
 
     /**
@@ -341,9 +406,8 @@ class BaseModel extends \Towel\BaseApp
      *
      * @throws \Exception : If no id is provided.
      */
-    public function findRelated($field_names, $id = null)
+    public function findRelatedWithoutFetch($field_names, $id = null)
     {
-
         if ($this->isNew()) {
             throw new \Exception("There is not ID defined.");
         }
@@ -355,7 +419,7 @@ class BaseModel extends \Towel\BaseApp
         foreach ($this->fks as $fk) {
             $localFieldsNames = $fk->getLocalColumns();
             if ($field_names == $localFieldsNames) {
-                return $this->joinWithThis(
+                return $this->join(
                     $fk->getForeignTableName(),
                     $fk->getLocalColumns(),
                     $fk->getForeignColumns(),
@@ -365,6 +429,27 @@ class BaseModel extends \Towel\BaseApp
         }
 
         throw new \Exception('Not a valid field for join ' . $field_names);
+    }
+
+    /**
+     * Finds related records by foreign key.
+     *
+     * It will use the internal id of the record if is set or
+     * will use the given id to make the join.
+     *
+     * If the object is new you have to provide the id.
+     *
+     * @param $field_names : String of Array of fields name (same in table).
+     * @param integer $id : The id for the join or null to use the internal id.
+     *
+     * @return Array of Model Objects
+     *
+     * @throws \Exception : If no id is provided.
+     */
+    public function findRelated($field_names, $id = null) {
+        $results = $this->findRelatedWithoutFetch($field_names, $id);
+        $return = $this->hydrate($results);
+        return $return;
     }
 
     /**
@@ -381,7 +466,7 @@ class BaseModel extends \Towel\BaseApp
      *
      * @return mixed : PDOStatement with results.
      */
-    public function joinWithThis($foreign_table, $local_fields, $foreign_fields, $id = null)
+    public function joinWithoutFetch($foreign_table, $local_fields, $foreign_fields, $id = null)
     {
         $condition = '';
 
@@ -401,6 +486,59 @@ class BaseModel extends \Towel\BaseApp
             ->setParameter(0, $id);
 
         return $query->execute();
+    }
+
+    /**
+     * Executes a inner Join with this table and the table related to the field.
+     * if Id is provided is going to user that id if not the internal
+     * record id is going to be used.
+     *
+     * @param $foreign_table : The foreign table.
+     * @param $local_fields : The local fields, array with names.
+     * @param $foreign_fields : The foreign fields, array with names.
+     * @param integer $id : Optional.
+     *
+     * @see findRelated
+     *
+     * @return Array of Model Objects
+     */
+    public function join($foreign_table, $local_fields, $foreign_fields, $id = null)
+    {
+        $results = $this->joinWithoutFetch($foreign_table, $local_fields, $foreign_fields, $id);
+        return $this->hydrate($results);
+    }
+
+    /**
+     * Default Hydrate.
+     *
+     * Use preHydrate and postHydrate methods to change the default behavior.
+     * You can override this method too if you need.
+     *
+     * @param PDOStatement $results
+     *
+     * @return Array of Model Objects
+     */
+    public function hydrate(PDOStatement $results) {
+
+        if (method_exists($this, 'preHydrate')) {
+            $results = $this->preHydrate($results);
+        }
+
+        $return = array();
+        if ($results) {
+            $arrayResults = $results->fetchAll();
+            foreach ($arrayResults as $arrayResult) {
+                $className = get_class($this);
+                $object = new $className();
+                $return[$arrayResult[$this->id_name]] = $object->setRecord($arrayResult);
+            }
+        }
+
+        if (method_exists($this, 'postHydrate')) {
+            $return = $this->preHydrate($return);
+        }
+
+        return $return;
     }
 }
 
