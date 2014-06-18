@@ -52,7 +52,7 @@ class Post extends BaseModel
 }
 
 
-``
+```
 
 The only requirement for this class is to have the table name defined. For this sample the table
 name is Post.
@@ -65,21 +65,70 @@ We will see later how to do more fancy stuff but for now will be enough.
 Create a new Record
 -------------------
 
+```php
+
+$post = new Post();
+$post->title = "some title";
+$post->created = time();
+$post->body = "the post content";
+$post->uid = $user->id
+$post->save();
+
+```
+
 Update the Record
 -----------------
+
+
+```php
+
+$post->title = "change the title";
+$post->save();
+
+```
 
 
 Delete the Record
 -----------------
 
+```php
+
+$post->delete();
+
+```
+
+
+```php
+
+$post->deleteAll(); //Deletes all content in the table !!!
+
+```
 
 Find a Record by ID
 -------------------
 
+```php
+$post = new Post();
+
+if ($post->findById($id)) {
+    echo $post->title; //Will print the title.
+} else {
+    echo "Post does not exist";
+}
+```
 
 Find Records
 ------------
 
+```php
+$post = new Post();
+$posts = $post->findAll();
+
+foreach ($posts as $post) {
+    //Do Something.
+    echo $post->title;
+}
+```
 
 Joins with other Tables
 -----------------------
