@@ -6,13 +6,14 @@ use Doctrine\DBAL\Driver\PDOStatement;
 
 class BaseModel extends \Towel\BaseApp
 {
-    public $id_name = 'id';
-    public $fields;
-    public $fks;
-    public $table;
-    public $record;
-    public $isDirty = false;
-    public $isDeleted = false;
+    public $id_name = 'id';   //Field name of the Primary Key.
+    public $fields;           //Table Fields, is going to be discovered on object creation.
+    public $fks;              //Foreign Keys.
+    public $table;            //Table Name in the Database, must be definend in the child.
+    public $record;           //Keeps the Database Record, only fields defined in the table are allowed.
+    public $fetchedRecord;    //Keeps the last fetched records from a query, all fetched fields.
+    public $isDirty = false;  //True if some field was modified with setField.
+    public $isDeleted = false;//True if the record have been deleted.
 
     public function __construct()
     {
@@ -94,14 +95,23 @@ class BaseModel extends \Towel\BaseApp
     /**
      * Gets a Field from Record.
      *
+     * If the field is not in record will check in fetchedRecord, fetched record may have
+     * some fields from the last query that you will need, like related records.
+     *
      * @param $name
      * @return mixed
      * @throws \Exception
      */
     public function getField($name) {
+
         if (isset($this->fields[$name])) {
             return $this->record[$name];
         }
+
+        if (isset($this->fetchedRecord[$name])) {
+            return $this->fetchedRecord[$name];
+        }
+
         throw new \Exception('Not a valid Field for Get ' . $name);
     }
 
@@ -241,6 +251,7 @@ class BaseModel extends \Towel\BaseApp
             }
         }
         $this->record = $newRecord;
+        $this->fetchedRecord = $record;
         return $this;
     }
 
@@ -286,14 +297,15 @@ class BaseModel extends \Towel\BaseApp
      * @param $sql
      * @param $params
      *
-     *  @return mixed : Array with result or false.
+     * @return The current instance with the record setted internally.
      */
     public function fetchOne($sql, $params)
     {
         $result = $this->db()->fetchAssoc($sql, $params);
 
         if (!empty($result)) {
-            return $result;
+            $this->setRecord($result);
+            return $this;
         }
 
         return false;
@@ -305,7 +317,7 @@ class BaseModel extends \Towel\BaseApp
      *
      * @param String $id
      *
-     *  @return mixed : Array with result or false.
+     *  @return The current instance with the record setted internally.
      */
     public function findById($id)
     {
@@ -369,7 +381,8 @@ class BaseModel extends \Towel\BaseApp
      * @param $value
      * @param $operator : A valid SQL operator for the comparison =, >, <, LIKE, IN, NOT IN. By default =
      *
-     * @return mixed : Array with results.
+     * @return Array of Model Objects
+    .
      */
     public function findByField($field_name, $value, $operator = '=')
     {
@@ -429,7 +442,7 @@ class BaseModel extends \Towel\BaseApp
      * @param $field_names : String of Array of fields name (same in table).
      * @param integer $id : The id for the join or null to use the internal id.
      *
-     * @return Array with Results.
+     * @return Array of Model Objects
      *
      * @throws \Exception : If no id is provided.
      */
@@ -487,7 +500,7 @@ class BaseModel extends \Towel\BaseApp
      *
      * @see findRelated
      *
-     * @return mixed : Array with results.
+     * @return Array of Model Objects
      */
     public function join($foreign_table, $local_fields, $foreign_fields, $id = null)
     {
@@ -503,7 +516,7 @@ class BaseModel extends \Towel\BaseApp
      *
      * @param PDOStatement $results
      *
-     * @return array
+     * @return Array of Model Objects
      */
     public function hydrate(PDOStatement $results) {
 
@@ -511,10 +524,14 @@ class BaseModel extends \Towel\BaseApp
             $results = $this->preHydrate($results);
         }
 
-        if (!$results) {
-            $return = array();
-        } else {
-            $return = $results->fetchAll(PDO::FETCH_BOTH);
+        $return = array();
+        if ($results) {
+            $arrayResults = $results->fetchAll();
+            foreach ($arrayResults as $arrayResult) {
+                $className = get_class($this);
+                $object = new $className();
+                $return[$arrayResult[$this->id_name]] = $object->setRecord($arrayResult);
+            }
         }
 
         if (method_exists($this, 'postHydrate')) {

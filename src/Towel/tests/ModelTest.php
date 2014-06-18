@@ -55,7 +55,7 @@ class ModelTest extends \PHPUnit_Framework_TestCase {
         //Gets the inserted record.
         $modelId = $model->id;
         $modelRecord = $model->findById($model->id);
-        $this->assertEquals($modelRecord['id'], $model->id);
+        $this->assertEquals($modelRecord->id, $model->id);
 
         //Deletes the inserted record.
         $this->assertTrue(!$model->isDeleted);
@@ -65,6 +65,30 @@ class ModelTest extends \PHPUnit_Framework_TestCase {
         //Verifies that is deleted.
         $modelRecord = $model->findById($model->id);
         $this->assertTrue(!$modelRecord);
+    }
+
+    public function testFind() {
+        $this->model->deleteAll();
+        $test = array('one', 'two', 'three');
+
+        foreach($test as $name) {
+            $model = new myTable();
+            $model->name = $name;
+            $model->save();
+        }
+
+        $records = $model->findAll();
+
+        $this->assertEquals(count($records), 3);
+
+        $first = array_shift($records);
+        $this->assertEquals($test[0], $first->name);
+        $first = array_shift($records);
+        $this->assertEquals($test[1], $first->name);
+        $first = array_shift($records);
+        $this->assertEquals($test[2], $first->name);
+        $this->assertEquals(count($records), 0);
+        $this->assertNotEquals(count($records), 1);
     }
 
 }
