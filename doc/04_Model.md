@@ -81,7 +81,7 @@ Update the Record
 
 
 ```php
-
+//$post is an instance of a previously created object or retrieved from the database.
 $post->title = "change the title";
 $post->save();
 
@@ -92,23 +92,21 @@ Delete the Record
 -----------------
 
 ```php
-
+//$post is an instance of a previously created object or retrieved from the database.
 $post->delete();
 
 ```
 
-
 ```php
-
+$post = new Post() //Or with an instance of a previously created object or retrieved from the database.
 $post->deleteAll(); //Deletes all content in the table !!!
-
 ```
 
 Find a Record by ID
 -------------------
 
 ```php
-$post = new Post();
+$post = new Post(); //Or with an instance of a previously created object or retrieved from the database.
 
 if ($post->findById($id)) {
     echo $post->title; //Will print the title.
@@ -121,9 +119,9 @@ Find Records
 ------------
 
 ```php
-$post = new Post();
-$posts = $post->findAll();
+$post = new Post(); //Or with an instance of a previously created object or retrieved from the database.
 
+$posts = $post->findAll();
 foreach ($posts as $post) {
     //Do Something.
     echo $post->title;
