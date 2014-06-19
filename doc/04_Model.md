@@ -57,7 +57,7 @@ name is Post.
 That is all that you have to do to create a Model Object. As it is the model will allow you
 create, update, delete and do some basic queries by default.
 
-We will see later how to do more fancy stuff but for now will be enough.
+We will see later how to do more fancy stuffs.
 
 Create a new Record
 -------------------
@@ -120,8 +120,11 @@ foreach ($posts as $post) {
 }
 ```
 
-Joins with other Tables
------------------------
+Find Records By Field
+---------------------
+
+Joins
+-----
 
 1 to Many Relations
 -------------------
