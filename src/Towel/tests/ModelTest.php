@@ -91,4 +91,29 @@ class ModelTest extends \PHPUnit_Framework_TestCase {
         $this->assertNotEquals(count($records), 1);
     }
 
+    public function testFindByField() {
+        $this->model->deleteAll();
+
+        $model = new myTable();
+        $test = array('one', 'two', 'three');
+
+        foreach($test as $name) {
+            $model = new myTable();
+            $model->name = $name;
+            $model->save();
+        }
+
+        $results = $model->findByField('name', 'one');
+        $this->assertEquals(1, count($results));
+        $result = array_shift($results);
+        $this->assertEquals('one', $result->name);
+
+        try {
+            $results = $model->findByField('wrongField', 'one');
+        } catch (\Exception $e) {
+            $this->assertEquals("An exception occurred while executing 'SELECT t.* FROM myTable t WHERE wrongField = ?' with params [\"one\"]:\n\nSQLSTATE[HY000]: General error: 1 no such column: wrongField", $e->getMessage());
+        }
+
+    }
+
 }
