@@ -122,7 +122,20 @@ foreach ($posts as $post) {
 
 Find Records By Field
 ---------------------
+Use findByField method, this receives the field name, same as in database, and the value.
+An optional third parameter can be given to set the operator for the comparsion, any SQL comparsion operator
+can be used like =, >, <, <=, >=, like, ilike, set this parameter as string.
 
+```php
+$post = new Post();
+
+$results = $post->findByField('uid', $userId);
+
+foreach ($results as $result) {
+   echo $result->title;
+}
+
+```
 Joins
 -----
 
