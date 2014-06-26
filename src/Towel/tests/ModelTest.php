@@ -6,6 +6,10 @@ class myTable extends \Towel\Model\BaseModel {
     public $table = 'myTable';
 }
 
+class Post extends \Towel\Model\BaseModel {
+    public $table = 'post';
+}
+
 class ModelTest extends \PHPUnit_Framework_TestCase {
 
     public function setUp() {
@@ -114,6 +118,12 @@ class ModelTest extends \PHPUnit_Framework_TestCase {
             $this->assertEquals("An exception occurred while executing 'SELECT t.* FROM myTable t WHERE wrongField = ?' with params [\"one\"]:\n\nSQLSTATE[HY000]: General error: 1 no such column: wrongField", $e->getMessage());
         }
 
+    }
+
+    public function testJoins() {
+        $post = new Post();
+        $post->findRelated('category_id', 1);
+        var_dump($post);
     }
 
 }

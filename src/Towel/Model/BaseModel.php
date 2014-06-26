@@ -38,7 +38,13 @@ class BaseModel extends \Towel\BaseApp
                 'type' => $column->getType(),
             );
         }
+
+        try {
         $this->fks = $sm->listTableForeignKeys($this->table);
+        } catch (\DBALException $e) {
+            //Platform does not support foreign keys.
+            $this->fks = array();
+        }
     }
 
     /**
@@ -408,10 +414,6 @@ class BaseModel extends \Towel\BaseApp
      */
     public function findRelatedWithoutFetch($field_names, $id = null)
     {
-        if ($this->isNew()) {
-            throw new \Exception("There is not ID defined.");
-        }
-
         if (is_string($field_names)) {
             $field_names = array($field_names);
         }
