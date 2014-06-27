@@ -172,8 +172,8 @@ Many to Many Relations
 To get many to many relation you'll need to use findRelatedModelsBridge method.
 
 ```php
-        $post->findById($postId);
-        $tags = $post->findRelatedModelsBridge('Application\Name\Model\PostTag', 'Application\Name\Model\Tag');
+$post->findById($postId);
+$tags = $post->findRelatedModelsBridge('Application\Name\Model\PostTag', 'Application\Name\Model\Tag');
 ```
 
 $tags is going to be an array with instances of Tag model class.
