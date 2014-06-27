@@ -74,7 +74,6 @@ $post->save();
 Update the Record
 -----------------
 
-
 ```php
 //$post is an instance of a previously created object or retrieved from the database.
 $post->title = "change the title";
