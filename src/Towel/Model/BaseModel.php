@@ -40,7 +40,7 @@ class BaseModel extends \Towel\BaseApp
         }
 
         try {
-        $this->fks = $sm->listTableForeignKeys($this->table);
+            $this->fks = $sm->listTableForeignKeys($this->table);
         } catch (\DBALException $e) {
             //Platform does not support foreign keys.
             $this->fks = array();
@@ -398,119 +398,6 @@ class BaseModel extends \Towel\BaseApp
     }
 
     /**
-     * Finds related records by foreign key.
-     *
-     * It will use the internal id of the record if is set or
-     * will use the given id to make the join.
-     *
-     * If the object is new you have to provide the id.
-     *
-     * @param $field_names : String of Array of fields name (same in table).
-     * @param integer $id : The id for the join or null to use the internal id.
-     *
-     * @return PDOStatement.
-     *
-     * @throws \Exception : If no id is provided.
-     */
-    public function findRelatedWithoutFetch($field_names, $id = null)
-    {
-        if (is_string($field_names)) {
-            $field_names = array($field_names);
-        }
-
-        foreach ($this->fks as $fk) {
-            $localFieldsNames = $fk->getLocalColumns();
-            if ($field_names == $localFieldsNames) {
-                return $this->join(
-                    $fk->getForeignTableName(),
-                    $fk->getLocalColumns(),
-                    $fk->getForeignColumns(),
-                    $id
-                );
-            }
-        }
-
-        throw new \Exception('Not a valid field for join ' . $field_names);
-    }
-
-    /**
-     * Finds related records by foreign key.
-     *
-     * It will use the internal id of the record if is set or
-     * will use the given id to make the join.
-     *
-     * If the object is new you have to provide the id.
-     *
-     * @param $field_names : String of Array of fields name (same in table).
-     * @param integer $id : The id for the join or null to use the internal id.
-     *
-     * @return Array of Model Objects
-     *
-     * @throws \Exception : If no id is provided.
-     */
-    public function findRelated($field_names, $id = null) {
-        $results = $this->findRelatedWithoutFetch($field_names, $id);
-        $return = $this->hydrate($results);
-        return $return;
-    }
-
-    /**
-     * Executes a inner Join with this table and the table related to the field.
-     * if Id is provided is going to user that id if not the internal
-     * record id is going to be used.
-     *
-     * @param $foreign_table : The foreign table.
-     * @param $local_fields : The local fields, array with names.
-     * @param $foreign_fields : The foreign fields, array with names.
-     * @param integer $id : Optional.
-     *
-     * @see findRelated
-     *
-     * @return mixed : PDOStatement with results.
-     */
-    public function joinWithoutFetch($foreign_table, $local_fields, $foreign_fields, $id = null)
-    {
-        $condition = '';
-
-        foreach ($local_fields as $key => $field) {
-            $condition .= " t1.$field = t2.{$foreign_fields[$key]}";
-        }
-
-        if ($id === null) {
-            $id = $this->getId();
-        }
-
-        $query = $this->db()->createQueryBuilder();
-        $query->select('t1.*, t2.*')
-            ->from($this->table, 't1')
-            ->innerJoin('t1', $foreign_table, 't2', $condition)
-            ->where("t1.{$this->id_name} = ?")
-            ->setParameter(0, $id);
-
-        return $query->execute();
-    }
-
-    /**
-     * Executes a inner Join with this table and the table related to the field.
-     * if Id is provided is going to user that id if not the internal
-     * record id is going to be used.
-     *
-     * @param $foreign_table : The foreign table.
-     * @param $local_fields : The local fields, array with names.
-     * @param $foreign_fields : The foreign fields, array with names.
-     * @param integer $id : Optional.
-     *
-     * @see findRelated
-     *
-     * @return Array of Model Objects
-     */
-    public function join($foreign_table, $local_fields, $foreign_fields, $id = null)
-    {
-        $results = $this->joinWithoutFetch($foreign_table, $local_fields, $foreign_fields, $id);
-        return $this->hydrate($results);
-    }
-
-    /**
      * Default Hydrate.
      *
      * Use preHydrate and postHydrate methods to change the default behavior.
@@ -542,5 +429,89 @@ class BaseModel extends \Towel\BaseApp
 
         return $return;
     }
+
+    /**
+     * Finds a related model instance by the given field name and the id value.
+     *
+     * Use it in a 1 to N relation, with an object instance of the N side to the get 1 related model.
+     *
+     * @param $modelName : The related model name.
+     * @param $field : The field that must be used to relate.
+     * @param $id : Optional, the ID the related model, if is not given the value of the field in the executor object will be used.
+     *
+     * @throws \Exception : if a invalid model is given.
+     *
+     * @return Related Instance.
+     */
+    public function findRelatedModel($modelName, $field, $id = null) {
+        $relatedModel = $this->getInstance($modelName);
+
+        if ($this->isNew() && $id === null) {
+            throw new \Exception('No id for related');
+        }
+
+        if ($id === null) {
+            $id = $this->getField($field);
+        }
+
+        $result = $relatedModel->findByID($id);
+        return $result;
+    }
+
+    /**
+     * Finds related models instances using the field name and the id value.
+     *
+     * Use it in a 1 to N relation, with an object instance of the 1 side to the get N related models.
+     *
+     * @param $modelName : The related model name.
+     * @param $field : The field that must be used to relate.
+     * @param $id : Optional, the ID the related model, if is not given the value of the field in the executor object will be used.
+     *
+     * @throws \Exception : if a invalid model is given.
+     *
+     * @return Related Instance.
+     */
+    public function findRelatedModels($modelName, $field, $id = null) {
+        $relatedModel = $this->getInstance($modelName);
+
+        if ($this->isNew() && $id === null) {
+            throw new \Exception('No id for related');
+        }
+
+        if ($id === null) {
+            $id = $this->getId();
+        }
+
+        $result = $relatedModel->findByField($field, $id);
+        return $result;
+    }
+
+    public function findRelatedModelsBridge($bridgeModel, $modelName, $id = null) {
+
+        if ($this->isNew() && $id === null) {
+            throw new \Exception('No id for related');
+        }
+
+        if ($id === null) {
+            $id = $this->getId();
+        }
+
+        $bridge = $this->findRelatedModels($bridgeModel, $this->table . '_id', $id);
+
+        $return = array();
+
+        foreach ($bridge as $b) { //@Todo replace this for a query with IN (ids)
+            $finalModel = $this->getInstance($modelName);
+            $bridgeField = $finalModel->table . '_id';
+            if (!isset($return[$b->$bridgeField])) {
+                if ($finalModel->findById($b->$bridgeField)) {
+                    $return[$finalModel->getId()] = $finalModel;
+                }
+            }
+        }
+
+        return $return;
+    }
+
 }
 

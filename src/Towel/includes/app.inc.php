@@ -33,7 +33,13 @@ function get_instance($classMapName, $args = array(), $singleton = false) {
     static $objects = array();
     global $appConfig;
     if ($singleton == false || empty($objects[md5($classMapName)])) {
-        $className = $appConfig['class_map'][$classMapName];
+
+        if (!empty($appConfig['class_map'][$classMapName])) {
+            $className = $appConfig['class_map'][$classMapName];
+        } else {
+            $className = $classMapName; // No map, use the given name.
+        }
+
         $class = new \ReflectionClass($className);
         $object = $class->newInstance($args);
 
