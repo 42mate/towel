@@ -134,7 +134,6 @@ $results = $post->findByField('uid', $userId);
 foreach ($results as $result) {
    echo $result->title;
 }
-
 ```
 
 1 to Many Relations
