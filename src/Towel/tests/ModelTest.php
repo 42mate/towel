@@ -10,6 +10,19 @@ class Post extends \Towel\Model\BaseModel {
     public $table = 'post';
 }
 
+class Category extends \Towel\Model\BaseModel {
+    public $table = 'category';
+}
+
+class Tag extends \Towel\Model\BaseModel {
+    public $table = 'tag';
+}
+
+class PostTag extends \Towel\Model\BaseModel {
+    public $table = 'post_tag';
+}
+
+
 class ModelTest extends \PHPUnit_Framework_TestCase {
 
     public function setUp() {
@@ -120,10 +133,105 @@ class ModelTest extends \PHPUnit_Framework_TestCase {
 
     }
 
-    public function testJoins() {
+    public function testRelated() {
+
+        (new Category())->deleteAll();
+        (new Post())->deleteAll();
+
+        foreach (array(1,2,3,4) as $c) {
+            $cat = new Category();
+            $cat->name = 'cat' . $c;
+            $cat->save();
+        }
+
         $post = new Post();
-        $post->findRelated('category_id', 1);
-        var_dump($post);
+        $post->title = 'foo';
+        $post->body = 'bar';
+        $post->category_id = 1;
+        $post->save();
+
+        $post = new Post();
+        $post->title = 'zaraza';
+        $post->body = 'bar';
+        $post->category_id = 1;
+        $post->save();
+
+        $post = new Post();
+        $post->title = '3333';
+        $post->body = 'bar';
+        $post->category_id = 1;
+        $post->save();
+
+        $post2 = new Post();
+        $post2->title = 'foo 1';
+        $post2->body = 'bar 1';
+        $post2->category_id = 2;
+        $post2->save();
+
+        $category = $post2->findRelatedModel('Towel\Tests\Category', 'category_id');
+        $this->assertEquals($category->name, 'cat2');
+
+        $category = $post->findRelatedModel('Towel\Tests\Category', 'category_id');
+        $this->assertEquals($category->name, 'cat1');
+
+        $posts = $category->findRelatedModels('Towel\Tests\Post', 'category_id');
+        $this->assertEquals(count($posts), 3);
+
+        foreach($posts as $post) {
+            $this->assertEquals($post->category_id, 1);
+        }
+
+        $posts = $category->findRelatedModels('Towel\Tests\Post', 'category_id', 2);
+        $this->assertEquals(count($posts), 1);
+
+        foreach($posts as $post) {
+            $this->assertEquals($post->category_id, 2);
+        }
+
     }
 
+    public function testManyToMany() {
+        (new Category())->deleteAll();
+        (new Post())->deleteAll();
+        (new Tag())->deleteAll();
+        (new PostTag())->deleteAll();
+
+        foreach (array(1,2,3,4) as $t) {
+            $tag = new Tag();
+            $tag->name = 'tag' . $t;
+            $tag->save();
+        }
+
+        $post = new Post();
+        $post->title = 'foo';
+        $post->body = 'bar';
+        $post->category_id = 1;
+        $post->save();
+
+        $post = new Post();
+        $post->title = 'zaraza';
+        $post->body = 'bar';
+        $post->category_id = 1;
+        $post->save();
+
+        $pt = new PostTag();
+        $pt->post_id = 2;
+        $pt->tag_id = 1;
+        $pt->save();
+
+        $pt = new PostTag();
+        $pt->post_id = 2;
+        $pt->tag_id = 2;
+        $pt->save();
+
+        $pt = new PostTag();
+        $pt->post_id = 2;
+        $pt->tag_id = 3;
+        $pt->save();
+
+        $tags = $post->findRelatedModelsBridge('Towel\Tests\PostTag', 'Towel\Tests\Tag');
+
+        $this->assertEquals(3, count($tags)); //@todo write more tests !
+
+    }
 }
