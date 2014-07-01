@@ -36,14 +36,23 @@ Start by installing composer in any preferred folder if you don't have it alread
 After that, run composer to create Towel project's folder structure.
 
     php composer.php create-project --no-interaction -s dev 42mate/towel-standard
+
+After two coffes probably composer have completed the download of the packages so now, go inside of the project folder.
+
+    cd towel-standard/web
     
+And there run the embebbed PHP Web Server 
+
+    php -S 127.0.0.1:8008 -t .
+    
+Go with your browser to the 127.0.0.1:8008 Address and you must be ready to see the Towel welcome page.
+
 After that you'll have a fully operational Towel instance to start coding your application.
 
-Following you might want to
+These steps are for a basic demostration, if you want to do something serious you might want to
 
- * Configure your virtual host to the web folder.
+ * Configure your virtual host to the web folder with a real Web Server.
  * Setup a Database.
- * Setup your application config.
-
+ * Setup your application config (configuration chapter).
 
 
