@@ -74,7 +74,6 @@ $post->save();
 Update the Record
 -----------------
 
-
 ```php
 //$post is an instance of a previously created object or retrieved from the database.
 $post->title = "change the title";
@@ -134,16 +133,48 @@ $results = $post->findByField('uid', $userId);
 foreach ($results as $result) {
    echo $result->title;
 }
-
 ```
-Joins
------
 
 1 to Many Relations
 -------------------
 
+You have two side to tacle this problem, from the 1 side, or from the N side.
+
+a) Getting the 1 side from some instance from the N side.
+
+You have to use findRelatedModel, the first parameter is the model class name, with namespace, and the second is the field name in the current
+object that is going to be used to read the value and match in the ID of the wanted model.
+
+```php
+$post->findById($postId);
+$category = $post->findRelatedModel('Application\Name\Model\Category', 'category_id');
+```
+
+$category will be an instance of Model Category with the related value.
+
+b) Getting the N values from an instance of the 1 side.
+
+You have to use findRelatedModels (note the s), the first parameter is the model class name, with namespace, and the second is the field name in the wanted
+model that is going to be used to read the value and match with the current object id.
+
+```php
+$category->findById($categoryId);
+$posts = $category->findRelatedModels('Application\Name\Model\Post', 'category_id');
+```
+
+$posts will be an array with instances of Model Posts.
+
 Many to Many Relations
 ----------------------
+
+To get many to many relation you'll need to use findRelatedModelsBridge method.
+
+```php
+$post->findById($postId);
+$tags = $post->findRelatedModelsBridge('Application\Name\Model\PostTag', 'Application\Name\Model\Tag');
+```
+
+$tags is going to be an array with instances of Tag model class.
 
 Implementing custom Queries
 ---------------------------
