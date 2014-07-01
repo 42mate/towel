@@ -5,7 +5,7 @@ Towel is a web framework that born inside of 42mate as an internal framework to 
 
 Whit Towel we want to create an easy to learn framework, with long term support, having the best things of others framworks and the most important, following the PHP philosophy because this framework is for PHP developers, not for Java, .NET or whatever other crap language.
 
-This framwork is built over two great products, Silex and Doctrine Dbal, we strongly recomend you start to learn those frameworks first, boths are very easy to learn. Also we are using Twig, Bootstrap, Sass, Composer and others.
+This framwork is built over two great products, Composer, Silex and Doctrine Dbal, we strongly recomend you start to learn those frameworks and tools first, they are very easy to learn. Also we are using Twig, Bootstrap, Sass, jQuery for the frontend.
 
 ## Features
 
@@ -27,7 +27,6 @@ We are covering only a specific PHP Ecosystem, we don't want to kill all the zom
 
 You won't have a lot of great feature that others frameworks have.
 
-
 ## Instalation
 
 Start by installing composer in any preferred folder if you don't have it already installed.
@@ -36,7 +35,7 @@ Start by installing composer in any preferred folder if you don't have it alread
     
 After that, run composer to create Towel project's folder structure.
 
-    php composer.phar create-project --no-interaction 42mate/towel-standard /path/to/towel-project-folder dev-master
+    php composer.php create-project --no-interaction -s dev 42mate/towel-standard
     
 After that you'll have a fully operational Towel instance to start coding your application.
 
