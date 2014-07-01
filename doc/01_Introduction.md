@@ -5,17 +5,15 @@ Towel is a web framework that born inside of 42mate as an internal framework to 
 
 Whit Towel we want to create an easy to learn framework, with long term support, having the best things of others framworks and the most important, following the PHP philosophy because this framework is for PHP developers, not for Java, .NET or whatever other crap language.
 
-Features
-========
+## Features
 
 
-Pros
-====
+### Pros
 
-Cons
-====
+
+### Cons
+
 
 Instalation
-===========
 
 
