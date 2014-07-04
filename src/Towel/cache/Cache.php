@@ -11,6 +11,8 @@ namespace Towel\cache;
 
 class Cache
 {
+    const DEFAULT_KEY_PREFIX = 'towel';
+
     public function __construct(\Towel\cache\CacheInterface $cacheDriver)
     {
         $this->cacheDriver = $cacheDriver;
@@ -18,26 +20,38 @@ class Cache
 
     public function get($key)
     {
-        return $this->cacheDriver->get($key);
+        return $this->cacheDriver->get($this->getKey($key));
     }
 
     public function set($key, $value, $expire = null)
     {
-        $this->cacheDriver->set($key, $value, $expire);
+        $this->cacheDriver->set($this->getKey($key), $value, $expire);
     }
 
     public function clear()
     {
-        $this->cacheDriver->clear();
+        $keys = $this->getDriverInstance()->getAllKeys();
+        $this->getDriverInstance()->deleteMulti($keys);
+
     }
 
     public function delete($key)
     {
-        $this->cacheDriver->delete($key);
+        $this->cacheDriver->delete($this->getKey($key));
     }
 
     public function getDriverInstance()
     {
         return $this->cacheDriver;
+    }
+
+    public function getKey($key) {
+        $prefix = self::DEFAULT_KEY_PREFIX;
+        $config = get_app()->config();
+        if (!empty($config['cache']['prefix'])) {
+            $prefix = $config['cache']['prefix'];
+        }
+
+        return $prefix . '_' . $key;
     }
 }

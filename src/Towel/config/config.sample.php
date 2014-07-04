@@ -63,7 +63,8 @@ $appConfig = array(
     ),
 
     'cache' => array(
-        'driver'  => 'memcached',
+        'driver' => 'memcached',
+        'prefix' => 'towel',
         'options' => array(
             'hosts' => array(
                 '127.0.0.1' => 11211
