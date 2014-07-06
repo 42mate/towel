@@ -21,10 +21,18 @@ To use it you only need to add any kind of assets in to your application asset f
 Application/Views/assets
 ```
 
-The, to reference these assets you have to use the function assets_url, available in PHP and in Twig.
+To reference these assets you have to use the function assets_url, available in PHP and in Twig.
+
+PHP
 
 ```
 assets_url('ApplicationName', 'css/myCool.css');
+```
+
+Twig
+
+```
+<script type="text/javascript" src="{{ assets_url('Frontend', 'js/frontend.js') }}"></script>
 ```
 
 This function is going to return a valid url to be caught by the assets controller that is the one in charge to
