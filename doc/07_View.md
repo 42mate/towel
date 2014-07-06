@@ -15,13 +15,17 @@
 Since the application assets (css, js, images) are not public, they are inside of the application (Application/Views/assets)
 Towel provides a controller to server application assets.
 
-To use it you only need to add any kind of assets in to your application asset folder
+To use it you only need to add any kind of assets in to your application asset folder.
 
-```Application/Views/assets```
+```
+Application/Views/assets
+```
 
 The, to reference these assets you have to use the function assets_url, available in PHP and in Twig.
 
-```assets_url('ApplicationName', 'css/myCool.css');```
+```
+assets_url('ApplicationName', 'css/myCool.css');
+```
 
 This function is going to return a valid url to be caught by the assets controller that is the one in charge to
 return the assets content.
