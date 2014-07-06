@@ -20,7 +20,6 @@ $url = new Twig_SimpleFunction('url', function ($route, $parameters = array(), $
 
     return url($route, $parameters, $absolute);
 });
-
 $app->twig()->addFunction($url);
 
 
@@ -39,5 +38,13 @@ $render_messages = new Twig_SimpleFunction('render_messages', function() {
    }
    return $out;
 });
-
 $app->twig()->addFunction($render_messages);
+
+/**
+ * Assets url
+ */
+$assets_url = new Twig_SimpleFunction('assets_url', function ($application, $path) {
+    return assets_url($application, $path);
+});
+$app->twig()->addFunction($assets_url);
+

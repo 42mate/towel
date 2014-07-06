@@ -36,6 +36,11 @@ foreach (glob(APP_CONFIG_DIR . "/routes/*Routes.php") as $routeFile) {
     require_once "$routeFile";
 }
 
+//Init Default Routes
+foreach (glob(APP_FW_DIR . "/config/routes/*Routes.php") as $defaultRoutes) {
+    require_once "$defaultRoutes";
+}
+
 //Init Twig Functions
 require_once APP_FW_DIR . "/includes/twig/twig_functions.inc.php";
 

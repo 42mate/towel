@@ -31,8 +31,9 @@ class Cache
     public function clear()
     {
         $keys = $this->getDriverInstance()->getAllKeys();
-        $this->getDriverInstance()->deleteMulti($keys);
-
+        if (is_array($keys)) { //Bool will be returned in case of no keys, nothing to delete.
+            $this->getDriverInstance()->deleteMulti($keys);
+        }
     }
 
     public function delete($key)

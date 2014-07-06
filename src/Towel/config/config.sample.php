@@ -10,6 +10,7 @@ if (APP_NAME == 'Towel') {
 } else {
     define('APP_ROOT_DIR', dirname(__FILE__) . '/../../..');
 }
+
 define('APP_CACHE_DIR', APP_ROOT_DIR . '/cache/' . APP_NAME);
 define('APP_WEB_DIR', APP_ROOT_DIR . '/web');
 define('APP_UPLOADS_DIR', APP_WEB_DIR . '/uploads');
