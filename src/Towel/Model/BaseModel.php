@@ -109,7 +109,6 @@ class BaseModel extends \Towel\BaseApp
      * @throws \Exception
      */
     public function getField($name) {
-
         if (isset($this->fields[$name])) {
             return $this->record[$name];
         }

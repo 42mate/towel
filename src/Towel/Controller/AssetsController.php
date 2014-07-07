@@ -10,6 +10,17 @@ class AssetsController extends BaseController {
         'css', 'js', 'png', 'jpg', 'jpeg', 'gif', 'bmp'
     );
 
+    static $extensionTypeMapping = array(
+        'css' => 'text/css',
+        'js' => 'text/javascript',
+        'png' => 'media/image',
+        'png' => 'media/image',
+        'jpg' => 'media/image',
+        'jpeg' => 'media/image',
+        'gif' => 'media/image',
+        'bmp' => 'media/image',
+    );
+
     /**
      * Serves assets from the Application directory.
      *
@@ -58,7 +69,7 @@ class AssetsController extends BaseController {
             return new Response(
                 $asset_content,
                 200,
-                ['Content-Type' => $asset_type]
+                ['Content-Type' => self::$extensionTypeMapping[$asset_info['extension']]]
             );
         }
 
