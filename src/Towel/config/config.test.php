@@ -1,5 +1,10 @@
 <?php
-
+/**
+ * Config override for the Test Suite.
+ *
+ * @see autoload.php.dist
+ *
+ */
 $appConfig = array_merge($appConfig, array(
     'doctrine' => array(
         'dbs.options' => array(

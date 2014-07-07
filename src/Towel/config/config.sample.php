@@ -75,3 +75,14 @@ $appConfig = array(
 
     'debug' => true,
 );
+
+/**
+ * Use HTTP_HOST.config.php file to override any default configuration
+ * for in a specific environment.
+ */
+if (!empty($_SERVER['HTTP_HOST'])) {
+    $local_config = dirname(__FILE__) . '/' . $_SERVER['HTTP_HOST'] . 'config.php';
+    if (file_exists($local_config)) {
+        include $local_config;
+    }
+}
