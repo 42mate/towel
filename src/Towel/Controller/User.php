@@ -17,7 +17,7 @@ class User extends BaseController
             return $this->redirect('/login');
         }
 
-        $userModel = $this->session()->set('user');
+        $userModel = $this->session()->get('user');
         return $this->twig()->render('User\profile.twig', array('user' => $userModel));
     }
 
@@ -50,8 +50,8 @@ class User extends BaseController
         $validUser = $userModel->validateLogin($data['email'], $data['password']);
 
         if (!$validUser) {
-            $this->setMessage('error', 'Not valid user / password combination');
-            return $this->redirect('/login');
+            $this->setMessage('danger', 'Not valid user / password combination');
+            return $this->redirect(url('login'));
         }
 
         $this->session()->set('user', $userModel->record);
