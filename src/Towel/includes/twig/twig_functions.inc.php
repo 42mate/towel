@@ -17,7 +17,6 @@ $app = get_app();
  *
  */
 $url = new Twig_SimpleFunction('url', function ($route, $parameters = array(), $absolute = false) {
-
     return url($route, $parameters, $absolute);
 });
 $app->twig()->addFunction($url);
@@ -29,13 +28,18 @@ $app->twig()->addFunction($url);
  * {{ render_messages() }}
  */
 $render_messages = new Twig_SimpleFunction('render_messages', function() {
+   static $messages = array();
    $app = get_app();
    $out = '';
-   $messages = $app->session()->get('messages');
+
+   if (empty($message)) { //First time we will read the message from the session, after that from the current messages.
+    $messages = $app->session()->get('messages');
+   }
 
    foreach ($messages as $message) {
        $out .= "<div class='alert alert-{$message->mt}'>{$message->content}</div>";
    }
+    $app->session()->set('messages', array()); //Clean Messages.
    return $out;
 });
 $app->twig()->addFunction($render_messages);
@@ -48,3 +52,17 @@ $assets_url = new Twig_SimpleFunction('assets_url', function ($application, $pat
 });
 $app->twig()->addFunction($assets_url);
 
+
+/** Users */
+
+$app->twig()->addFunction(new Twig_SimpleFunction('is_authenticated', function () {
+    $app = get_app();
+    return $app->isAuthenticated();
+}));
+
+$app->twig()->addFunction(new Twig_SimpleFunction('user_name', function () {
+    $app = get_app();
+    $user = $app->getCurrentUser();
+    //vdd($user);
+    return $user->username;
+}));
