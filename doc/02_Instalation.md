@@ -69,7 +69,7 @@ server {
     error_log /var/log/nginx/towel_error.log;
     access_log /var/log/nginx/towel_access.log;
 }
-``
+```
 
 ### Setting Up an Apache Web Server (optional).
 
@@ -79,5 +79,5 @@ Help here !.
 
 We recommend you to install the following PHP extension
 
-memcached for caching
-xdebug for development
+- memcached for caching
+- xdebug for development
