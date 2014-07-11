@@ -9,6 +9,8 @@ if you are a newbie pay attention.
 Start by installing composer, be a man, install composer globally and have it in your PATH.
 After that, run composer to create Towel project's folder structure.
 
+https://getcomposer.org/doc/00-intro.md
+
 ### Installing Towel
 
 ```
