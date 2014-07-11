@@ -88,3 +88,22 @@ function url_image($pic)
     }
     return '';
 }
+
+/**
+ * Includes the routes of the application.
+ *
+ * @param String $application_name
+ *
+ * @throws Exception
+ */
+function add_app_routes($application_name) {
+
+    $app_dir = APPS_DIR . "/$application_name/configs/routes";
+    if (!file_exists($app_dir)) {
+        throw new Exception('App does not exists');
+    }
+
+    foreach (glob($app_dir . "/*Routes.php") as $routeFile) {
+        require_once "$routeFile";
+    }
+}

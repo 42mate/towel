@@ -18,6 +18,7 @@ define('APP_LIB_DIR', APP_ROOT_DIR . '/vendor');
 define('APP_FW_DIR', APP_ROOT_DIR . '/vendor/42mate/towel/src/Towel');
 define('APP_CONFIG_DIR', dirname(__FILE__));
 define('APP_DIR', dirname(__FILE__) . '/../');
+define('APPS_DIR', dirname(__FILE__) . '/../..');
 define('APP_BASE_URL', '/');
 
 $appConfig = array(

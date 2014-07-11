@@ -14,9 +14,11 @@ define('MESSAGE_WARNING', 'warning');
 global $silex;
 $silex = new Silex\Application();
 $silex['debug'] = $appConfig['debug'];
+
 $appConfig['twig']['twig.options']['cache'] = (!empty($appConfig['twig']['twig.options']['cache']))
                                               ? $appConfig['twig']['twig.options']['cache']
                                               : APP_CACHE_DIR . '/twig';
+
 $appConfig['twig']['twig.options']['autor_reload'] = (!empty($appConfig['twig']['twig.options']['autor_reload']))
                                                      ? $appConfig['twig']['twig.options']['autor_reload']
                                                      : $appConfig['debug'];
@@ -29,11 +31,6 @@ $silex->register(new Silex\Provider\UrlGeneratorServiceProvider());
 //Init Functions
 foreach (glob(APP_FW_DIR . "/includes/*.inc.php") as $includeFiles) {
     require_once "$includeFiles";
-}
-
-//Init Routes
-foreach (glob(APP_CONFIG_DIR . "/routes/*Routes.php") as $routeFile) {
-    require_once "$routeFile";
 }
 
 //Init Default Routes

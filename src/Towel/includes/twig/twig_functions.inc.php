@@ -28,12 +28,12 @@ $app->twig()->addFunction($url);
  * {{ render_messages() }}
  */
 $render_messages = new Twig_SimpleFunction('render_messages', function() {
-   static $messages = array();
+   static $messages = false;
    $app = get_app();
    $out = '';
 
-   if (empty($message)) { //First time we will read the message from the session, after that from the current messages.
-    $messages = $app->session()->get('messages');
+   if ($messages === false) { //First time we will read the message from the session, after that from the current messages.
+    $messages = $app->session()->get('messages', array());
    }
 
    foreach ($messages as $message) {

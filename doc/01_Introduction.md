@@ -49,7 +49,7 @@ Go with your browser to the 127.0.0.1:8008 Address and you must be ready to see 
 
 After that you'll have a fully operational Towel instance to start coding your application.
 
-These steps are for a basic demostration, if you want to do something serious you might want to
+These steps are for a basic demonstration, if you want to do something serious you might want to
 
  * Configure your virtual host to the web folder with a real Web Server.
  * Setup a Database.
