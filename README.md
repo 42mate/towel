@@ -63,7 +63,7 @@ Start by installing composer in any preferred folder if you don't have it alread
 After that, run composer to create Towel project's folder structure.
 
 ```
-    php composer.phar create-project --no-interaction 42mate/towel-standard /path/to/towel-project-folder dev-master
+    php composer.php create-project --no-interaction -s dev 42mate/towel-standard
 ```
 
 After that you'll have a fully operational Towel instance to start coding your application.
@@ -72,7 +72,6 @@ After that you might want to
 
 * Configure your virtual host to the web folder.
 * Setup your application config.
-
 
 ## Contributions to Towel
 

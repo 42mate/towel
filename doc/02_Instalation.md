@@ -9,6 +9,8 @@ if you are a newbie pay attention.
 Start by installing composer, be a man, install composer globally and have it in your PATH.
 After that, run composer to create Towel project's folder structure.
 
+https://getcomposer.org/doc/00-intro.md
+
 ### Installing Towel
 
 ```
@@ -69,7 +71,7 @@ server {
     error_log /var/log/nginx/towel_error.log;
     access_log /var/log/nginx/towel_access.log;
 }
-``
+```
 
 ### Setting Up an Apache Web Server (optional).
 
@@ -79,5 +81,5 @@ Help here !.
 
 We recommend you to install the following PHP extension
 
-memcached for caching
-xdebug for development
+- memcached for caching
+- xdebug for development
