@@ -34,7 +34,7 @@ foreach (glob(APP_FW_DIR . "/includes/*.inc.php") as $includeFiles) {
 }
 
 //Init Default Routes
-foreach (glob(APP_FW_DIR . "/config/routes/*Routes.php") as $defaultRoutes) {
+foreach (glob(APP_FW_DIR . "/Routes/*Routes.php") as $defaultRoutes) {
     require_once "$defaultRoutes";
 }
 
@@ -46,4 +46,3 @@ require_once APP_FW_DIR . "/includes/twig/twig_filters.inc.php";
 
 //Process Session messages.
 $silex['twig']->addGlobal('fw_app', new \Towel\BaseApp());
-

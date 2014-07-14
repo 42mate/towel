@@ -15,7 +15,7 @@ class TestCommand extends BaseCommand
 
     public function execute(InputInterface $input, OutputInterface $output)
     {
-        echo 'Abemus Console';
+        echo 'Abemus Console '. PHP_EOL;
     }
 }
 

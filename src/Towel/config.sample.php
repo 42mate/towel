@@ -1,23 +1,19 @@
 <?php
 
-$appName = basename(dirname(dirname(__FILE__)));
 global $appConfig;
 
-define('APP_NAME', $appName);
-
-if (APP_NAME == 'Towel') {
-    define('APP_ROOT_DIR', dirname(__FILE__) . '/../../../../../..');
+if (basename(dirname(__FILE__)) == 'Towel') {
+    define('APP_ROOT_DIR', dirname(__FILE__) . '/../../../../..');
 } else {
     define('APP_ROOT_DIR', dirname(__FILE__) . '/../../..');
 }
 
-define('APP_CACHE_DIR', APP_ROOT_DIR . '/cache/' . APP_NAME);
+define('APP_CACHE_DIR', APP_ROOT_DIR . '/cache/');
 define('APP_WEB_DIR', APP_ROOT_DIR . '/web');
 define('APP_UPLOADS_DIR', APP_WEB_DIR . '/uploads');
 define('APP_LIB_DIR', APP_ROOT_DIR . '/vendor');
 define('APP_FW_DIR', APP_ROOT_DIR . '/vendor/42mate/towel/src/Towel');
 define('APP_CONFIG_DIR', dirname(__FILE__));
-define('APP_DIR', dirname(__FILE__) . '/../');
 define('APPS_DIR', dirname(__FILE__) . '/../..');
 define('APP_BASE_URL', '/');
 
@@ -32,22 +28,11 @@ $appConfig = array(
                 'password' => 'db_pass',
                 'charset' => 'utf8',
             ),
-            /**
-             * 'mysql_two' => array(
-             *   'driver'    => 'pdo_mysql',
-             *   'host'      => 'mysql_write.someplace.tld',
-             *   'dbname'    => 'my_database',
-             *   'user'      => 'my_username',
-             *   'password'  => 'my_password',
-             *   'charset'   => 'utf8',
-             *   ),
-             */
         ),
     ),
 
     'twig' => array(
         'twig.path' => array(
-            APP_DIR . '/Views',
             APP_FW_DIR . '/Views'
         )
     ),
