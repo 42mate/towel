@@ -98,7 +98,8 @@ function url_image($pic)
  */
 function add_app_routes($application_name) {
 
-    $app_dir = APPS_DIR . "/$application_name/configs/routes";
+    $app_dir = APPS_DIR . "/$application_name/Routes";
+
     if (!file_exists($app_dir)) {
         throw new Exception('App does not exists');
     }
