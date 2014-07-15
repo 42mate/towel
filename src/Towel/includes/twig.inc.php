@@ -5,7 +5,7 @@
  *
  * @param $path Array or string.
  */
-function add_twig_path($path) {
+function append_twig_path($path) {
     $app = get_app();
     $app->silex['twig.loader.filesystem']->addPath($path);
 }
@@ -15,7 +15,7 @@ function add_twig_path($path) {
  *
  * @param $path Array or string.
  */
-function prepend_twig_path($path) {
+function add_twig_path($path) {
     $app = get_app();
     $app->silex['twig.loader.filesystem']->prependPath($path);
 }
@@ -25,7 +25,7 @@ function prepend_twig_path($path) {
  *
  * @param $application The name of the application
  */
-function add_app_twig($application) {
+function append_app_twig($application) {
     add_twig_path(APPS_DIR . '/'. $application . '/Views');
 }
 
@@ -34,6 +34,6 @@ function add_app_twig($application) {
  *
  * @param $application The name of the application
  */
-function prepend_app_twig($application) {
-    prepend_twig_path(APPS_DIR . '/'. $application . '/Views');
+function add_app_twig($application) {
+    add_twig_path(APPS_DIR . '/'. $application . '/Views');
 }
