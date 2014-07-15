@@ -2,7 +2,8 @@
 
 ## Directory structure
 
-![Towel Directories](https://raw.githubusercontent.com/casivaagustin/towel/master/doc/img/towel_dirs.png "Towel Directories")
+| :-------------: |
+![Towel Directories](https://raw.githubusercontent.com/casivaagustin/towel/master/doc/img/towel_dirs.png "Towel Directories") 
 
 ## Execution Flow
 
