@@ -3,10 +3,6 @@ language: php
 php:
   - 5.4
 
-before_script:
-    - COMPOSER_ROOT_VERSION=dev-master composer --prefer-source --dev install
-    - sh -c 'if [ "$TRAVIS_PHP_VERSION" != "5.3.3" ]; then phpunit --self-update; fi;'
-
 script:
     - echo "Running tests requiring tty"; phpunit --group tty
     - phpunit
