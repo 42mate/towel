@@ -3,5 +3,13 @@ language: php
 php:
   - 5.4
 
+before_script:
+  - cd ../..
+  - composer self-update
+  - composer create-project --no-interaction -s dev 42mate/towel-standard sandbox
+  - rm -rf sandbox/vendor
+  - mv 42mate sandbox/vendor
+
 script:
+    - cd sandbox/vendor/42mate/towel
     - phpunit
