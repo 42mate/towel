@@ -34,7 +34,6 @@ class CacheTest extends \PHPUnit_Framework_TestCase
     {
         $cache = get_app()->getCache();
         $cache->clear();
-        var_dump($cache->getDriverInstance()->getAllKeys());
         $this->assertEmpty($cache->getDriverInstance()->getAllKeys(), 'Cache keys found: ' . implode(',', $cache->getDriverInstance()->getAllKeys()));
     }
 }
