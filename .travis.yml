@@ -9,7 +9,8 @@ before_script:
   - composer create-project --no-interaction -s dev 42mate/towel-standard sandbox
   - rm -rf sandbox/vendor/42mate/towel
   - mv 42mate/towel sandbox/vendor/42mate
+  - echo "extension = memcached.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
 
 script:
-    - cd sandbox/vendor/42mate/towel
-    - phpunit
+  - cd sandbox/vendor/42mate/towel
+  - phpunit
