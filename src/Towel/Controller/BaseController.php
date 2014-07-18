@@ -19,7 +19,7 @@ class BaseController extends \Towel\BaseApp
     /**
      * Default Index page
      */
-    public function index()
+    public function index($request)
     {
         return $this->twig()->render('Default\index.twig');
     }
