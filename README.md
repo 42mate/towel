@@ -1,10 +1,8 @@
-Towel
+Towel ![Build Info](https://travis-ci.org/42mate/towel.svg?branch=master)
 =====
 
 Towel is a PHP MVC framework designed to be very very easy to learn. It is built on top of Silex and Doctrine Dbal
 and adds an extra layer to provide ease of integration and the capability to work like any MVC Framework.
-
-![Build Info](https://travis-ci.org/42mate/towel.svg?branch=master)
 
 ## Motivation
 
