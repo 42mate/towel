@@ -7,8 +7,8 @@ before_script:
   - cd ../..
   - composer self-update
   - composer create-project --no-interaction -s dev 42mate/towel-standard sandbox
-  - rm -rf sandbox/vendor
-  - mv 42mate sandbox/vendor
+  - rm -rf sandbox/vendor/42mate/towel
+  - mv 42mate/towel sandbox/vendor/42mate
 
 script:
     - cd sandbox/vendor/42mate/towel
