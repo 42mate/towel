@@ -65,4 +65,21 @@ In order to find your templates twig loaders needs to know about your view Folde
 methods to add application views folder to your current Twig loader.
 
 What the loeader does is build a collection of twig paths, twig is going to use that collection to lookup for views
-when you need to render it, the order of the path in the collections is very important since that
+when you need to render it, the order of the path in the collections is very important since the first path is used to
+lookup for the requested template, if is not found there use the next one and goes on until find the template or fails.
+
+The default application must be the first place to lockup, secondary apps must follow the default.
+
+Add your default twig app with
+
+```php
+add_app_twig('Frontend', true);
+```
+
+And any other app path with
+
+```php
+add_app_twig('SecondaryApp');
+```
+
+The execution order of this instruction will determine the order of the lookup path.
