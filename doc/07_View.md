@@ -58,3 +58,11 @@ If you use sass this will be much more easy, you can do a mixin to get the url (
 ## Adding Assets into your templates
 
 ## Twig configuration
+
+## Adding Twig templates of an Application to the loader
+
+In order to find your templates twig loaders needs to know about your view Folders, Towel provides a few
+methods to add application views folder to your current Twig loader.
+
+What the loeader does is build a collection of twig paths, twig is going to use that collection to lookup for views
+when you need to render it, the order of the path in the collections is very important since that
