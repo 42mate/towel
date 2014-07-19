@@ -40,5 +40,22 @@ class TowelTest extends \PHPUnit_Framework_TestCase {
         $this->assertFalse(($towel === $towel4), 'get_instance is not returning different instances');
     }
 
+    public function testAddApplication() {
+        //Test Add any app
+        add_app('Frontend');
+        $paths = get_app()->getTwigLoader()->getPaths();
+        $this->assertEquals(2, count($paths), 'Must be 2 paths in twigs paths');
+        $this->assertEquals($paths[1], APPS_DIR . '/Frontend/Views');
 
+        //Reseting twitgs, leaving only towel twig
+        get_app()->getTwigLoader()->setPaths(array($paths[0]));
+
+        //Adding frontend as default
+        add_app('Frontend', true);
+        $paths2 = get_app()->getTwigLoader()->getPaths();
+        $this->assertEquals(2, count($paths2), 'Must be 2 paths in twigs paths');
+        $this->assertEquals($paths2[0], APPS_DIR . '/Frontend/Views', 'Frontend must be first');
+        $this->assertEquals($paths2[1], APP_ROOT_DIR . '/vendor/42mate/towel/src/Towel/Views', 'Towel twigs must be in the 2 item');
+
+    }
 }

@@ -212,4 +212,12 @@ class BaseApp
         return self::$cache;
     }
 
+    /**
+     * Returns the Silex File System Loader.
+     *
+     * return Twig_Loader_Filesystem
+     */
+    public function getTwigLoader() {
+        return $this->silex['twig.loader.filesystem'];
+    }
 }

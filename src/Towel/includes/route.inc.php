@@ -15,8 +15,7 @@
  *
  * @return The action Result.
  */
-function add_route($method, $route, $options = array())
-{
+function add_route($method, $route, $options = array()) {
     $towel = get_app();
 
     if (!empty($options['controller']) && !empty($options['action'])) {
@@ -42,7 +41,6 @@ function add_route($method, $route, $options = array())
     if (!empty($options['route_name'])) {
         $route->bind($options['route_name']);
     }
-
 }
 
 /**
@@ -54,8 +52,7 @@ function add_route($method, $route, $options = array())
  *
  * @return string : Url.
  */
-function url($route, $parameters = array(), $absolute = false)
-{
+function url($route, $parameters = array(), $absolute = false) {
     if ($route[0] == '/') { //Literal route, checks if need to include a prefix.
         $url_prefix = '';
         if (count(APP_BASE_URL) > 0) {
@@ -81,8 +78,7 @@ function url($route, $parameters = array(), $absolute = false)
  * @return string : Full url to the image if exists, empty if not.
  *
  */
-function url_image($pic)
-{
+function url_image($pic) {
     if (!empty($pic) && file_exists(APP_UPLOADS_DIR . '/' . $pic)) {
         return APP_BASE_URL . 'uploads/' . $pic;
     }
@@ -97,7 +93,6 @@ function url_image($pic)
  * @throws Exception
  */
 function add_app_routes($application_name) {
-
     $app_dir = APPS_DIR . "/$application_name/Routes";
 
     if (!file_exists($app_dir)) {

@@ -5,8 +5,7 @@
  *
  * @return \Towel\BaseApp
  */
-function get_app()
-{
+function get_app() {
     return get_instance('app', array(), true);
 }
 
@@ -15,8 +14,7 @@ function get_app()
  *
  * @return \Towel\Controller\BaseController
  */
-function get_base_controller()
-{
+function get_base_controller() {
     return new \Towel\Controller\BaseController();
 }
 
@@ -60,4 +58,13 @@ function vdd() {
     $args = func_get_args();
     call_user_func('var_dump', $args);
     die();
+}
+
+function add_app($applicationName, $default = false) {
+    add_app_routes($applicationName);
+    if ($default) {
+        add_app_twig($applicationName, true);
+    } else {
+        add_app_twig($applicationName);
+    }
 }
