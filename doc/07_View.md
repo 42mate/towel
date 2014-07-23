@@ -26,6 +26,35 @@ Your specific pages for your specific actions must inherit of the master.twig te
 
 Define your assets into assets folder and use assets_url function to get the right path to your assets.
 
+### Defining Twig Paths
+
+In order to find your templates twig loaders needs to know about your view Folders, Towel provides a few
+methods to add application views folder to your current Twig loader.
+
+What the loader does is build a collection of twig paths, twig is going to use that collection to lookup for views
+when you need to render it, the order of the path in the collections is very important since the first path is used to
+lookup for the requested template, if is not found there use the next one and goes on until find the template or fails.
+
+The default application must be the first place to lockup, secondary apps must follow the default.
+
+Add your default twig app with
+
+```php
+add_app_twig('Frontend', true);
+```
+
+And any other app path with
+
+```php
+add_app_twig('SecondaryApp');
+```
+
+The execution order of this instruction will determine the order of the lookup path.
+
+If you want to override any template from others application you can do it easily defining a template with the same name and a same
+relative path, from Views, in your default application since that is the one with more priority will be loaded first than the one in the
+secondary application.
+
 ### Master Template
 
 This is a master.twig sample from the Frontend application
@@ -173,8 +202,6 @@ Twig will look into the twig paths for MyController\MyTemplate.twig staring in t
 
 If twig can not find a suitable template will throw an error.
 
-## Extending from the master template
-
 ## Assets
 
 Since the application assets (css, js, images) are not public, they are inside of the application (Application/Views/assets)
@@ -218,36 +245,13 @@ To reference images in the css we don't have any cool method yet, but you can bu
 background-url: url('/assets?application=Frontend&path=images/background.png');
 ```
 
-If you use sass this will be much more easy, you can do a mixin to get the url (we will do this in the future).
+If you use sass this will be much more easy, you can do a mixin to get the url.
 
-## Adding Assets into your templates
-
-## Twig configuration
-
-## Adding Twig templates of an Application to the loader
-
-In order to find your templates twig loaders needs to know about your view Folders, Towel provides a few
-methods to add application views folder to your current Twig loader.
-
-What the loeader does is build a collection of twig paths, twig is going to use that collection to lookup for views
-when you need to render it, the order of the path in the collections is very important since the first path is used to
-lookup for the requested template, if is not found there use the next one and goes on until find the template or fails.
-
-The default application must be the first place to lockup, secondary apps must follow the default.
-
-Add your default twig app with
-
-```php
-add_app_twig('Frontend', true);
-```
-
-And any other app path with
-
-```php
-add_app_twig('SecondaryApp');
-```
-
-The execution order of this instruction will determine the order of the lookup path.
+```css
+@function assets_url($path) {
+  @return '/assets?application=' + $application + '&path=' + $path ';';
+}
+``
 
 ## Twig Functions Helpers
 
