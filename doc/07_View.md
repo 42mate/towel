@@ -160,7 +160,9 @@ This is a template for an action sample
 
 Once you have defined the template you can call to render it from the action in the controller
 
-        return $this->twig()->render('MyController\MyTemplate.twig', array('var1' => $var1));
+```php
+return $this->twig()->render('MyController\MyTemplate.twig', array('var1' => $var1));
+``
 
 This says to twig, that we want to render the template MyTemplate.twig in MyController sending to the template the variable $var1 and in the template will named var1.
 
