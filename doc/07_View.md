@@ -7,18 +7,24 @@ as a first step you must learn about twig.
 
 http://twig.sensiolabs.org/
 
-Also we are using boostrap and jQuery by default, if you want to remove it you can do it, but our documentation will
+Also we are using Twitter Boostrap and jQuery by default, if you want to remove it you can do it, but our documentation will
 assume that you want to use it.
 
-## Templates
+http://getbootstrap.com/
+http://jquery.com/
+
+## How our views works
 
 Once you have the route and your controller for your action you'll need a view to present something to the user. In order
 to render a view you have to define a template.
 
-Inside of the Views folder you must create your twig templates. We recommend you to create a master.twig file into your views folder
-of your main application, that master template must have the master layout of the page.
+In your Application, Inside of the Views folder you must create your twig templates and define you application assets.
+
+We recommend you to create a master.twig file into your views folder of your main application, that master template must have the master layout of the page.
 
 Your specific pages for your specific actions must inherit of the master.twig template.
+
+Define your assets into assets folder and use assets_url function to get the right path to your assets.
 
 ### Master Template
 
@@ -149,6 +155,19 @@ This is a template for an action sample
 ```
 
 ## Render the template in the controller
+
+Once you have defined the template you can call to render it from the action in the controller
+
+        return $this->twig()->render('MyController\MyTemplate.twig', array('var1' => $var1));
+
+This says to twig, that we want to render the template MyTemplate.twig in MyController sending to the template the variable $var1 and in the template will named var1.
+
+Note the return, remember that all controllers must return an string or response object, since we are going to render the response
+we are ready to return it as response of the controller.
+
+Twig will look into the twig paths for MyController\MyTemplate.twig staring in the default application and then continuing with the remaining paths.
+
+If twig can not find a suitable template will throw an error.
 
 ## Extending from the master template
 
