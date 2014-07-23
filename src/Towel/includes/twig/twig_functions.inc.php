@@ -66,3 +66,17 @@ $app->twig()->addFunction(new Twig_SimpleFunction('user_name', function () {
     //vdd($user);
     return $user->username;
 }));
+
+
+/** View Fields */
+
+/**
+ * if_not_empty returns empty if the field is not defined and the value of the fiel if is defined.
+ */
+$app->twig()->addFunction(new Twig_SimpleFunction('if_not_empty', function (\Towel\Model\BaseModel $model, $fieldName) {
+    $value = $model->getField($fieldName);
+    if (!empty($value)) {
+        return $model->getField($fieldName);
+    }
+    return '';
+}));
