@@ -105,6 +105,7 @@ Your action templates must inherit from the master.twig and then define the need
 If you controller is called MyController, create a new folder called MyController and put inside of that your twig templates
 for your controller actions, this is not a hard rule but is going to be a good practice.
 
+```
 MyApplication
  \Controller
     MyControllerA
@@ -118,6 +119,7 @@ MyApplication
     \MyControllerB
       ActionA.twig
       ActionB.twig
+```
 
 This is a template for an action sample
 
