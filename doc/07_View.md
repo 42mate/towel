@@ -251,7 +251,7 @@ If you use sass this will be much more easy, you can do a mixin to get the url.
 @function assets_url($path) {
   @return '/assets?application=' + $application + '&path=' + $path ';';
 }
-``
+```
 
 ## Twig Functions Helpers
 
@@ -279,4 +279,3 @@ Returns the user name of the current logged user.
 
 Renders the flash messages, use it in your master template.
 
-###
