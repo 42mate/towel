@@ -59,7 +59,7 @@ secondary application.
 
 This is a master.twig sample from the Frontend application
 
-```twig
+```html
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -152,7 +152,7 @@ MyApplication
 
 This is a template for an action sample
 
-```twig
+```html
 {% extends "master.twig" %}
 
 {% block content %}
