@@ -36,10 +36,10 @@ You won't have a lot of great feature that others frameworks have.
 
 ## Requirements
 
-PHP 5.4
-Memcache Server
-Memcached PHP Extension
-A Database Server like MySQL or for small projects you can use SQLite
+* PHP 5.4
+* Memcache Server
+* Memcached PHP Extension
+* A Database Server like MySQL or for small projects you can use SQLite
 
 
 ## Installation
