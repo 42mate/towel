@@ -5,6 +5,10 @@
  * application dir to read the configuration of the app and apply tasks.
  */
 
+/**
+ * @todo Find a way to use the Towel clases (InputInterface, OutputInterface, InputArgument,
+ * OutputArgument) instead of symfony ones or abstract the user to use them directly.
+ */
 $app = require_once __DIR__ . '/../bootstrap.php';
 
 //Include the namespaces of the components we plan to use
