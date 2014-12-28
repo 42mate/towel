@@ -34,6 +34,6 @@ class CacheTest extends \PHPUnit_Framework_TestCase
     {
         $cache = get_app()->getCache();
         $cache->clear();
-        $this->assertTrue(is_array($cache->getDriverInstance()->getAllKeys()), 'Get all keys returned false');
+        $this->assertTrue(is_array($cache->getDriverInstance()->getAllKeys()), 'Get all keys returned false, Is the memcached service running ?');
     }
 }
