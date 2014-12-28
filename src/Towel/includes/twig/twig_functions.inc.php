@@ -67,6 +67,13 @@ $app->twig()->addFunction(new Twig_SimpleFunction('user_name', function () {
     return $user->username;
 }));
 
+$app->twig()->addFunction(new Twig_SimpleFunction('user_id', function () {
+    $app = get_app();
+    $user = $app->getCurrentUser();
+    //vdd($user);
+    return $user->id;
+}));
+
 
 /** View Fields */
 

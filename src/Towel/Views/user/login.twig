@@ -1,6 +1,7 @@
 {% extends "user/master.twig" %}
 
 {% block content %}
+    <h1>Login</h1>
     <form action='/login' method="POST" class='login form-horizontal'>
         <div class='control-group'>
             <label class="control-label">
@@ -26,4 +27,34 @@
             </div>
         </div>
     </form>
+    <style>
+        form.login .control-label {
+            font-size: 15px;
+            margin-bottom: 5px;
+        }
+
+        form.login input {
+            width: 320px;
+        }
+
+        form.login  .control-group {
+            margin-bottom: 35px;
+        }
+
+        form.login .control-label label.control-label {
+            font-size: 18px;
+            font-weight: normal;
+            margin-bottom: 10px;
+        }
+
+        .page .content .navbar-default {
+            margin-bottom: 0px;
+        }
+
+        #content h1 {
+            border-bottom: 1px solid orange;
+            color: #4b4b4b;
+            padding: 10px 0px;
+        }
+    </style>
 {% endblock %}

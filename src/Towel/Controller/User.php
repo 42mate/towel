@@ -137,8 +137,9 @@ class User extends BaseController
             $modelUser->username = $data['model']['username'];
             $modelUser->password = md5($data['model']['password']);
             $modelUser->email = $data['model']['email'];
+            $modelUser->address = $data['model']['address'];
+            $modelUser->phone = $data['model']['phone'];
             $modelUser->save();
-            $this->setMessage('success', 'Your was created.');
             return $this->twig()->render('user\registerAction.twig');
         } else {
             return $this->twig()->render('user\register.twig', array(
