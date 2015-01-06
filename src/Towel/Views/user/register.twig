@@ -1,6 +1,7 @@
 {% extends "user/master.twig" %}
 
 {% block content %}
+    <h1>Registración</h1>
     <form action='/user/register' method="POST" class='login form-horizontal'>
         <div class='control-group'>
             <label class="control-label">
@@ -33,10 +34,65 @@
                 <input id="data_password" type='password' name="data[model][password]" value='' />
             </div>
         </div>
+        <div class='control-group'>
+            <label class="control-label">
+                Repita Password
+            </label>
+
+            <div class='controls'>
+                <input id="data_password" type='password' name="data[model][password]" value='' />
+            </div>
+        </div>
+        <div class='control-group'>
+            <label class="control-label">
+                Dirección
+            </label>
+            <div class='controls'>
+                <input id="data_direccion" type='text' name="data[model][address]" value='' />
+            </div>
+        </div>
+        <div class='control-group'>
+            <label class="control-label">
+                Teléfono
+            </label>
+            <div class='controls'>
+                <input id="data_password" type='text' name="data[model][phone]" value='' />
+            </div>
+        </div>
         <div class='buttons'>
             <div>
                 <input type="submit" value="Register" class="btn register" />
             </div>
         </div>
     </form>
+    <style>
+        form.login .control-label {
+            font-size: 15px;
+            margin-bottom: 5px;
+        }
+
+        form.login input {
+            width: 320px;
+        }
+
+        form.login  .control-group {
+            margin-bottom: 35px;
+        }
+
+        form.login .control-label label.control-label {
+            font-size: 18px;
+            font-weight: normal;
+            margin-bottom: 10px;
+        }
+
+        .page .content .navbar-default {
+            margin-bottom: 0px;
+        }
+
+        #content h1 {
+            border-bottom: 1px solid orange;
+            color: #4b4b4b;
+            padding: 10px 0px;
+        }
+    </style>
 {% endblock %}

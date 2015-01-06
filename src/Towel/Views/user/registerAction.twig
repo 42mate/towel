@@ -1,5 +1,31 @@
 {% extends "user/master.twig" %}
 
 {% block content %}
-    <h1>Success !, Account created</h1>
+    <h1>Felicitaciones, Tu cuenta a sido creada !</h1>
+    <div class="info">
+        Puedes comenzar a realizar tus intercambios logeandote con tu nueva cuenta.
+        <div>
+            <a href="/login">Logearse Ya!</a>
+        </div>
+    </div>
+    <style>
+        .info {
+            border: 1px solid #ccc;
+            padding: 10px;
+            color: #4b4b4b;
+            background-color: #eee;
+            text-align: center;
+            padding: 20px;
+            line-height: 32px;
+        }
+
+        .info a {
+            color: blue;
+        }
+
+        #content h1 {
+            text-align: center;
+            color: green;
+        }
+    </style>
 {% endblock %}

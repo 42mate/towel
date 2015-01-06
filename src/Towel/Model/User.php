@@ -4,7 +4,6 @@ namespace Towel\Model;
 
 class User extends BaseModel
 {
-
     public $table = 'app_user';
 
     /**
@@ -21,7 +20,8 @@ class User extends BaseModel
     {
         $password = md5($password);
 
-        $result = $this->fetchOne("SELECT * FROM {$this->table} WHERE email = ? AND password = ?",
+        $result = $this->fetchOne(
+            "SELECT * FROM {$this->table} WHERE email = ? AND password = ?",
             array($email, $password)
         );
 
@@ -41,7 +41,8 @@ class User extends BaseModel
      */
     public function findByName($username)
     {
-        return $this->fetchOne("SELECT * from {$this->table} WHERE username = ?",
+        return $this->fetchOne(
+            "SELECT * from {$this->table} WHERE username = ?",
             array($username)
         );
     }
@@ -55,7 +56,8 @@ class User extends BaseModel
      */
     public function findByEmail($email)
     {
-        return $this->fetchOne("SELECT * from {$this->table} WHERE email = ?",
+        return $this->fetchOne(
+            "SELECT * from {$this->table} WHERE email = ?",
             array($email)
         );
     }
@@ -69,9 +71,23 @@ class User extends BaseModel
     {
         $clean_password = generatePassword(6, 4);
         $password = md5($clean_password);
-        $this->db()->executeUpdate("UPDATE {$this->table} SET password = ? WHERE ID = ?",
-            array($password, $this->getId()));
+        $this->db()->executeUpdate(
+            "UPDATE {$this->table} SET password = ? WHERE ID = ?",
+            array($password, $this->getId())
+        );
+
         return $clean_password;
     }
 
+    public function getAvatar()
+    {
+        $pic = new \Towel\Model\Pic();
+        $pics = $pic->findObjectPics($this->table, $this->getId())->fetchAll();
+        if (count($pics) > 0) {
+            $the_pic = array_shift($pics);
+            return '/uploads/' . $the_pic['pic'];
+        } else {
+            return false;
+        }
+    }
 }

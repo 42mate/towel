@@ -33,6 +33,19 @@ $mysql -u root -p
 Replace towel for a valid database name, towel_usr for your towel user name for the database connection and towel_pass for
 a valid mysql user password. These credentials are the default credentials for the Frontend sample application.
 
+Once the database is created you must import the tables for users and pics, you'll need this tables if you want
+to use our users and file management features. Discard this if you don't want that.
+
+Go to
+
+```
+cd vendor/42mate/towel/src/Towel/Resources/sql/mysql
+sudo mysql -u root  -p towel < pic.sql
+sudo mysql -u root  -p towel < user.sql
+```
+
+These schemas are for mysql, contributions for others RDBMS are welcome.
+
 ### Setting Up a Nginx Web Server
 
 Assuming that you have a nginx and php-fpm up and running this will be the virual host configuration.
