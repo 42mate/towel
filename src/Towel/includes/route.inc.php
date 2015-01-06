@@ -55,9 +55,11 @@ function add_route($method, $route, $options = array()) {
 function url($route, $parameters = array(), $absolute = false) {
     if ($route[0] == '/') { //Literal route, checks if need to include a prefix.
         $url_prefix = '';
-        if (count(APP_BASE_URL) > 0) {
+
+        if (count(APP_BASE_URL) > 0 && APP_BASE_URL != '/') {
             $url_prefix = APP_BASE_URL;
         }
+
         return $url_prefix . $route;
     }
 

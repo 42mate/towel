@@ -51,7 +51,7 @@ class User extends BaseModel
      *
      * @param String $email
      *
-     * @return \Frontend\Model\User
+     * @return \Frontend\Model\User or False
      */
     public function findByEmail($email)
     {
