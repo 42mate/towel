@@ -279,3 +279,56 @@ Returns the user name of the current logged user.
 
 Renders the flash messages, use it in your master template.
 
+
+# JavaScript Settings
+
+Usually we need to send from our PHP backend things to our JavaScript frontend, like states, variables, arrays, objects
+and others values or data structures.
+
+Drupal have a Global object in JavaScript called Drupal where one of the fields in this object is settings, settings
+have a lot of values that are injected in the PHP code using drupal_add_js. This feature of Drupal is very usefull
+so we tried to do the same for towel.
+
+In JavaScript you will have a Global object called Towel, this object will have a field settings and settings will have
+ anything that we put inside using the function add_js_settings.
+
+If we use add_js_settings like this
+
+```
+add_js_settings(array('foo' => 'bar'));
+```
+
+In JavaScript you'll have
+
+```
+console.log(Towel.settings.foo); //Value is bar
+```
+
+The parameter of add_js_settings must be an array, where the key, or keys, will become the field of the javascript object
+and the value (can be anything) will be the value of the field in the javascript object.
+
+
+## Before Use It
+
+You'll have to print in your master twig template
+
+```
+<script type="text/javascript">{{ js_settings() | raw }}</script>
+``
+
+In order to render the javascript code with the object values.
+
+### For Global values, in All requests
+
+You'll need to add this in the bootstrap file.
+
+```
+get_app()->silex()->before(function (Request $request) {
+    //Add code here for global injection, In All requests.
+    add_js_settings(array(
+        'field1' => 'value',
+        'field2' => 'value'
+    ));
+});
+```
+

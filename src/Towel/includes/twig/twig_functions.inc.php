@@ -87,3 +87,12 @@ $app->twig()->addFunction(new Twig_SimpleFunction('if_not_empty', function (\Tow
     }
     return '';
 }));
+
+/**
+ * Returns the Javascript code for the Javascript settings defined with add_js_settings
+ *
+ * @see add_js_settings
+ */
+$app->twig()->addFunction(new Twig_SimpleFunction('js_settings', function () {
+    return js_settings();
+}));
