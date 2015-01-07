@@ -314,7 +314,7 @@ You'll have to print in your master twig template
 
 ```html
 <script type="text/javascript">{{ js_settings() | raw }}</script>
-``
+```
 
 In order to render the javascript code with the object values.
 
