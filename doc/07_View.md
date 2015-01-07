@@ -294,13 +294,13 @@ In JavaScript you will have a Global object called Towel, this object will have 
 
 If we use add_js_settings like this
 
-```
+```php
 add_js_settings(array('foo' => 'bar'));
 ```
 
 In JavaScript you'll have
 
-```
+```javascript
 console.log(Towel.settings.foo); //Value is bar
 ```
 
@@ -312,9 +312,9 @@ and the value (can be anything) will be the value of the field in the javascript
 
 You'll have to print in your master twig template
 
-```
+```html
 <script type="text/javascript">{{ js_settings() | raw }}</script>
-``
+```
 
 In order to render the javascript code with the object values.
 
@@ -322,7 +322,7 @@ In order to render the javascript code with the object values.
 
 You'll need to add this in the bootstrap file.
 
-```
+```php
 get_app()->silex()->before(function (Request $request) {
     //Add code here for global injection, In All requests.
     add_js_settings(array(
