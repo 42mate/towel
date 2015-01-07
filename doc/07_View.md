@@ -314,7 +314,7 @@ You'll have to print in your master twig template
 
 ```html
 <script type="text/javascript">{{ js_settings() | raw }}</script>
-```
+``
 
 In order to render the javascript code with the object values.
 
@@ -331,4 +331,8 @@ get_app()->silex()->before(function (Request $request) {
     ));
 });
 ```
+
+NOTE : Keep in mind that the values will be set before of the controller execution, we haven't figured out
+yet how to add settings global values after the controller execution since the HTML output was already rendered
+and the settings were printed. Ideas are welcome :)
 
