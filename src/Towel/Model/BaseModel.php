@@ -512,5 +512,20 @@ class BaseModel extends \Towel\BaseApp
         return $return;
     }
 
+    /**
+     * Convert the array of objects into a plain array.
+     *
+     * @param $objects
+     *
+     * @return array
+     */
+    static public function plain($objects) {
+        $data = array();
+        foreach ($objects as $object) {
+            $data[] = $object->getRecord();
+        }
+        return $data;
+    }
+
 }
 

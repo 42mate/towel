@@ -138,4 +138,13 @@ class BaseController extends \Towel\BaseApp
         $pic->created = time();
         $pic->save();
     }
+
+    /**
+     * Generates a machine readable slug of the string.
+     * 
+     * @param $string
+     */
+    public function sluggify($string) {
+
+    }
 }

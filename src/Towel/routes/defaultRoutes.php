@@ -12,10 +12,3 @@ add_route('get', '/assets', array(
     'action' => 'index',
     'route_name' => 'assets'
 ));
-
-if ($appConfig['debug']) {
-    get_app()->silex()->error(function (\Exception $e) {
-        $controller = new \Towel\Controller\BaseController();
-        return $controller->routeError($e);
-    });
-}
