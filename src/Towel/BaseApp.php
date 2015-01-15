@@ -127,7 +127,8 @@ class BaseApp
      *
      * @return object
      */
-    public function getInstance($classMapName, $args = array(), $singleton = false) {
+    public function getInstance($classMapName, $args = array(), $singleton = false)
+    {
         return get_instance($classMapName, $args, $singleton);
     }
 
@@ -146,7 +147,8 @@ class BaseApp
      * @param string $message
      * @param string $headers
      */
-    public function sendMail($to, $subject = '', $message = '', $headers = '') {
+    public function sendMail($to, $subject = '', $message = '', $headers = '')
+    {
         if (empty($headers)) {
             $headers = 'From: ' . APP_SYS_EMAIL;
         }
@@ -217,7 +219,8 @@ class BaseApp
      *
      * return Twig_Loader_Filesystem
      */
-    public function getTwigLoader() {
+    public function getTwigLoader()
+    {
         return $this->silex['twig.loader.filesystem'];
     }
 
@@ -228,7 +231,8 @@ class BaseApp
      *
      * @return String A machine readable string.
      */
-    public function sluggify($string) {
+    public function sluggify($string)
+    {
         $human_name = strtolower($string);
         $human_name = str_replace('á', 'a', $human_name);
         $human_name = str_replace('é', 'e', $human_name);
