@@ -367,7 +367,7 @@ class BaseModel extends \Towel\BaseApp
      * @param $value
      * @param $operator : A valid SQL operator for the comparison =, >, <, LIKE, IN, NOT IN. By default =
      *
-     * @return mixed : PDOStatement with results.
+     * @return PDOStatement : PDOStatement with results.
      */
     public function findByFieldWithoutFetch($field_name, $value, $operator = '=')
     {
@@ -413,6 +413,7 @@ class BaseModel extends \Towel\BaseApp
         }
 
         $return = array();
+
         if ($results) {
             $arrayResults = $results->fetchAll();
             foreach ($arrayResults as $arrayResult) {

@@ -92,7 +92,7 @@ class BaseApp
     /**
      * Gets the current user or false if is not authenticated.
      *
-     * @returns \Frontend\Model\User or false
+     * @returns \Towel\Model\BaseModel
      */
     public function getCurrentUser()
     {
@@ -181,7 +181,7 @@ class BaseApp
 
     /**
      * Instantiate Cache driver
-     * @return Towel\cache\CacheInterface
+     * @return \Towel\cache\CacheInterface
      */
     public function getCache()
     {
@@ -219,5 +219,28 @@ class BaseApp
      */
     public function getTwigLoader() {
         return $this->silex['twig.loader.filesystem'];
+    }
+
+    /**
+     * Generates a machine readable slug of the string.
+     *
+     * @param $string
+     *
+     * @return String A machine readable string.
+     */
+    public function sluggify($string) {
+        $human_name = strtolower($string);
+        $human_name = str_replace('á', 'a', $human_name);
+        $human_name = str_replace('é', 'e', $human_name);
+        $human_name = str_replace('í', 'i', $human_name);
+        $human_name = str_replace('ó', 'o', $human_name);
+        $human_name = str_replace('ú', 'u', $human_name);
+        $human_name = str_replace('ñ', 'n', $human_name);
+        return preg_replace(array(
+                '/[^a-zA-Z0-9]+/',
+                '/-+/',
+                '/^-+/',
+                '/-+$/',
+            ), array('-', '-', '', ''), $human_name);
     }
 }
