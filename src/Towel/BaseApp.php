@@ -183,7 +183,7 @@ class BaseApp
 
     /**
      * Instantiate Cache driver
-     * @return \Towel\cache\CacheInterface
+     * @return \Towel\Cache\CacheInterface
      */
     public function getCache()
     {
@@ -200,7 +200,7 @@ class BaseApp
                 if ('memcached' !== $this->appConfig['cache']['driver']) {
                     $className = $this->appConfig['cache']['driver'];
                 } else {
-                    $className = '\Towel\cache\TowelMemcached';
+                    $className = '\Towel\Cache\TowelMemcached';
                 }
 
                 // Driver instantiation

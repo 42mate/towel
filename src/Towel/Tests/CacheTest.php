@@ -6,7 +6,7 @@ class CacheTest extends \PHPUnit_Framework_TestCase
 {
     public function testGetCache()
     {
-        $this->assertInstanceOf('\Towel\cache\Cache', get_app()->getCache(), 'Is not an instance of Cache');
+        $this->assertInstanceOf('\Towel\Cache\Cache', get_app()->getCache(), 'Is not an instance of Cache');
     }
 
     public function testCacheSetKey()
