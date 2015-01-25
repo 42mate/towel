@@ -2,7 +2,7 @@
 
 namespace Towel;
 
-use Towel\cache\Cache as TowelCache;
+use Towel\Cache\Cache as TowelCache;
 
 class BaseApp
 {
