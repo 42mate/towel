@@ -29,7 +29,7 @@ $silex->register(new Silex\Provider\SessionServiceProvider(), $appConfig['sessio
 $silex->register(new Silex\Provider\UrlGeneratorServiceProvider());
 
 //Init Functions
-foreach (glob(APP_FW_DIR . "/includes/*.inc.php") as $includeFiles) {
+foreach (glob(APP_FW_DIR . "/Includes/*.inc.php") as $includeFiles) {
     require_once "$includeFiles";
 }
 
@@ -39,10 +39,10 @@ foreach (glob(APP_FW_DIR . "/Routes/*Routes.php") as $defaultRoutes) {
 }
 
 //Init Twig Functions
-require_once APP_FW_DIR . "/includes/twig/twig_functions.inc.php";
+require_once APP_FW_DIR . "/Includes/twig/twig_functions.inc.php";
 
 //Init Twig Filters
-require_once APP_FW_DIR . "/includes/twig/twig_filters.inc.php";
+require_once APP_FW_DIR . "/Includes/twig/twig_filters.inc.php";
 
 //Process Session messages.
 $silex['twig']->addGlobal('fw_app', new \Towel\BaseApp());
