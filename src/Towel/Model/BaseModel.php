@@ -528,5 +528,17 @@ class BaseModel extends \Towel\BaseApp
         return $data;
     }
 
+    /**
+     * Creates a QueryBuilder with the table selected.
+     *
+     * @return \Doctrine\DBAL\Query\QueryBuilder
+     */
+    public function createQuery() {
+        $query = $this->db()->createQueryBuilder();
+        $query->select('t.*')
+            ->from($this->table, 't');
+        return $query;
+    }
+
 }
 

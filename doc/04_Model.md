@@ -135,6 +135,32 @@ foreach ($results as $result) {
 }
 ```
 
+Custom Queries
+--------------
+
+In order to do custom queries over the table managed by the model you can start doing
+createQuery. Create query will do an createQueryBuilder and will set the selected fields
+to all and the table the current table of the model. That is the base for a
+
+```sql
+  SELECT * FROM table;
+```
+
+To add conditions use the methods of the query builder of doctrine (http://doctrine-dbal.readthedocs.org/en/latest/reference/query-builder.html).
+
+```php
+$post = new Post();
+
+$query = $post->createQuery();
+
+$query->where('...');
+$results = $query->execute();
+
+foreach ($results as $result) {
+   echo $result->title;
+}
+```
+
 1 to Many Relations
 -------------------
 
