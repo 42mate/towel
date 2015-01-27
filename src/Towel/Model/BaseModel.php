@@ -320,21 +320,15 @@ class BaseModel extends \Towel\BaseApp
      * Finds a Record by Id. Returns the record array and sets the internal
      * record if you want to use the record object.
      *
-     * @param String $id
+     *  @param String $id
      *
-     *  @return The current instance with the record setted internally.
+     *  @return The current instance with the record setted internally or false is nothing have been found.
      */
     public function findById($id)
     {
-        $result = $this->fetchOne("SELECT * from {$this->table} WHERE {$this->id_name} = ?",
+        return $this->fetchOne("SELECT * from {$this->table} WHERE {$this->id_name} = ?",
             array($id)
         );
-
-        if ($result) {
-            return $result;
-        }
-
-        return false;
     }
 
     /**
@@ -454,7 +448,7 @@ class BaseModel extends \Towel\BaseApp
             $id = $this->getField($field);
         }
 
-        $result = $relatedModel->findByID($id);
+        $result = $relatedModel->findById($id);
         return $result;
     }
 
