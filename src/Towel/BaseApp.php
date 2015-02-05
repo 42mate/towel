@@ -247,4 +247,23 @@ class BaseApp
                 '/-+$/',
             ), array('-', '-', '', ''), $human_name);
     }
+
+    /**
+     * Returns the Client IP of the request.
+     *
+     * @return string The Client IP Address
+     */
+    public function getClientIp() {
+        return $this->silex['request']->getClientIp();
+    }
+
+    /**
+     * Sanitize the input as plain text.
+     *
+     * @param $text
+     * @return string
+     */
+    public function checkPlain($text) {
+        return htmlspecialchars($text, ENT_QUOTES, 'UTF-8');
+    }
 }
