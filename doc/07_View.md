@@ -236,6 +236,29 @@ content css and js, any other kind of assets will not be serve.
 
 Also we are not serving any content outside of the assets folder, so don't put anything interesting in that folder.
 
+# Assets Client Caching
+
+Since is a good practice cache the Assets in the client side Towel supports some directives in the configuration
+for the assets served by the assets controller. Sets this lines in the config file for a proper assets
+service configuration
+
+```
+    'assets' => array(
+        'max-age' => 31536000,
+        'public' => true,
+    ),
+```
+
+For development, in your local override config, set this
+
+```
+    'assets' => array(
+        'max-age' => 0,
+        'public' => false,
+    ),
+```
+
+Or you'll never see your chenges in the css or js files unless you clear your browser cache.
 
 ### Referencing Images in CSS
 

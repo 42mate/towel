@@ -60,6 +60,11 @@ $appConfig = array(
         ),
     ),
 
+    'assets' => array(
+        'max-age' => 31536000, //Production config, for development use max-age 0 and public false.
+        'public' => true,
+    ),
+
     'debug' => true,
 );
 

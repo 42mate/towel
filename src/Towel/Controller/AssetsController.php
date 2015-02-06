@@ -66,11 +66,24 @@ class AssetsController extends BaseController {
         $asset_info = pathinfo($asset_path);
 
         if (!empty($asset_info['extension']) && in_array($asset_info['extension'], self::$validExtensions)) {
-            return new Response(
+            $response = new Response(
                 $asset_content,
                 200,
                 ['Content-Type' => self::$extensionTypeMapping[$asset_info['extension']]]
             );
+
+            //To cache in the client side.
+            $maxAge = 0;
+            if (!empty($this->appConfig['assets']['max-age'])) {
+                $maxAge = $this->appConfig['assets']['max-age'];
+            }
+            $response->headers->addCacheControlDirective('max-age', $maxAge);
+
+            if (!empty($this->appConfig['assets']['public']) && $this->appConfig['assets']['public'] == true) {
+                $response->headers->addCacheControlDirective('public', true);
+            }
+
+            return $response;
         }
 
         return new Response(
