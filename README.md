@@ -77,23 +77,22 @@ After that you might want to
 
 If want to contribute to Towel's core you'll need to do a few extra steps (no worries, they're not much).
 
-After downloading towel-standard:
 
-1 - Edit composer.json located at the root folder.
+1 - Install Towel Standard Distribution for testing your your in towel
 
-   1.1 - Delete the line: "42mate/towel": "xxx" (and the previous "," if "42mate/towel": "xxxx" was the last item in the "require" section)
+```
+php composer.php create-project --no-interaction -s dev 42mate/towel-standard
+```
 
-   1.2 - Add: "Towel": "vendor/42mate/towel/src" in the "psr-0" section
+2 - Once is installed remove the folder vendor/42mate/towel
 
-2 - Go to /path/to/towel-project-folder, run ./install-composer.sh and after that, run php composer.phar update, let composer do its magic.
+3 - Fork Towel repository with your git account into your own fork.
 
-3 - Fork Towel repository with your git account.
-
-4 - Go to /path/to/towel-project-folder/vendor and run it
-
+4 - Go to vendor/42mate and clone your towel fork
+ 
   ```  git clone git@github.com:USERNAME/towel.git ```
   
-  Add the upstream repository as a remote (for update your fork).
+5 - Add the upstream repository as a remote (for update your fork).
 
    ```
      cd towel
@@ -104,6 +103,8 @@ After downloading towel-standard:
 6 - After cloning Towel core, you only need to setup your favourite http server to serve pages from Towel's application.
 
 7 - Start your contributions!
+
+NOTE : If you need to add or update or do anything with composer, composer will complain about changes in the 42mate/towel working copy. So in that case you'll have to delete your fork, install with composer the latest 42mate/towel relased (composer update after delete vendor/42mate/towel), then do your compoer magic and when is done repeat this to get again your working copy from your fork. If anyone have a better workflow we will really apreciate the suggestion.
 
 ## Update your fork ##
 
