@@ -61,7 +61,7 @@ class TowelTest extends \PHPUnit_Framework_TestCase {
     public function testTowelGetApps() {
         $apps = \Towel\Towel::getApps();
         $this->assertTrue(is_array($apps), 'getApps is not an array');
-        $this->assertTrue(count($apps) > 2, 'There should be at least one app');
+        $this->assertTrue(count($apps) > 1, 'There should be at least one app');
         foreach($apps as $app) {
             $this->assertTrue(count($app) == 2, 'Each item in apps must have two items');
             $this->assertTrue(file_exists($app['path']), 'Item path must exists');
