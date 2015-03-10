@@ -91,6 +91,20 @@ class BaseController extends \Towel\BaseApp
     }
 
     /**
+     * Checks into the message bag if there is some error message.
+     * Type == error
+     */
+    public function hasErrorMessages() {
+      $messages = $this->getMessages();
+      foreach ($messages as $message) {
+        if ($message->mt == 'error') {
+          return true;
+        }
+      }
+      return false;
+    }
+
+    /**
      * Gets the Request.
      *
      * @return \Symfony\Component\HttpFoundation\Request.

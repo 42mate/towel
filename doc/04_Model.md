@@ -135,6 +135,30 @@ foreach ($results as $result) {
 }
 ```
 
+Get Records Paged
+-----------------
+
+We have a method findAllPaged, this method will help you to get paged results.
+
+```php
+      $site = new Site();
+      $page = $request->get('page', 0);
+
+      $total = $site->count(); //Total Rows in the database.
+      $sites = $site->findAllPaged($page, 20); //Only 20 results
+
+      $page_next = ($total > ($page + 1) * 20) ? $page + 20 : 0; //Sets pagers
+      $page_prev = ($page > 0) ? $page - 20: 0;
+
+      return $this->twig()->render('list.twig', array(
+          'data' => $sites,
+          'total' => $total,
+          'page' => $page,
+          'page_next' => $page_next,
+          'page_prev' => $page_prev,
+      ));
+```
+
 Custom Queries
 --------------
 
