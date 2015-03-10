@@ -1,6 +1,6 @@
 <?php
 
-namespace Towel\Console\Command;
+namespace Towel\Command;
 
 use Towel\Console\BaseCommand;
 use Symfony\Component\Console\Input\InputOption;

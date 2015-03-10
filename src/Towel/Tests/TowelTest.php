@@ -56,6 +56,16 @@ class TowelTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals(2, count($paths2), 'Must be 2 paths in twigs paths');
         $this->assertEquals($paths2[0], APPS_DIR . '/Frontend/Views', 'Frontend must be first');
         $this->assertEquals($paths2[1], APP_ROOT_DIR . '/vendor/42mate/towel/src/Towel/Views', 'Towel twigs must be in the 2 item');
+    }
 
+    public function testTowelGetApps() {
+        $apps = \Towel\Towel::getApps();
+        $this->assertTrue(is_array($apps), 'getApps is not an array');
+        $this->assertTrue(count($apps) > 2, 'There should be at least one app');
+        foreach($apps as $app) {
+            $this->assertTrue(count($app) == 2, 'Each item in apps must have two items');
+            $this->assertTrue(file_exists($app['path']), 'Item path must exists');
+            $this->assertTrue(is_dir($app['path']), 'Item path must be a directory');
+        }
     }
 }

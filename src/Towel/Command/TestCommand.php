@@ -1,5 +1,5 @@
 <?php
-namespace Towel\Console\Command;
+namespace Towel\Command;
 
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
