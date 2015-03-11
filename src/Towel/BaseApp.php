@@ -96,6 +96,10 @@ class BaseApp
      */
     public function getCurrentUser()
     {
+        if (Towel::isCli()) {
+          return false; //Cli is not logged.
+        }
+
         $userRecord = $this->session()->get('user', false);
         if (!$userRecord) {
             return false;

@@ -35,4 +35,14 @@ class Towel
 
     return $applications;
   }
+
+  /**
+   * Detects if the current execution is from the cli.
+   *
+   * @return bool
+   */
+  static public function isCli() {
+    //Based in drupal_is_cli, thanks for the magic
+    return (!isset($_SERVER['SERVER_SOFTWARE']) && (php_sapi_name() == 'cli' || (is_numeric($_SERVER['argc']) && $_SERVER['argc'] > 0)));
+  }
 }
