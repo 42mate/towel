@@ -23,21 +23,37 @@ class Migrator extends BaseApp
 
     public function migrate($migration = null) {
         $out = array();
-        $migrations = $this->getMigrations();
 
-        foreach ($migrations as $migration) {
+        if ($migration) {
+            $migration = $this->getMigration($migration);
             if ($migration->isPending()) {
                 $migration->doUp();
             }
+            $out = $migration->getMessages();
+        } else {
+            $migrations = $this->getMigrations();
 
-            $out = array_merge($out, $migration->getMessages());
+            foreach ($migrations as $migration) {
+                if ($migration->isPending()) {
+                    $migration->doUp();
+                }
+
+                $out = array_merge($out, $migration->getMessages());
+            }
         }
 
         return $out;
     }
 
     public function revert($migration) {
+        $migration = $this->getMigration($migration);
 
+        if (!$migration->isPending()) {
+            $migration->doDown();
+        }
+
+        $out = $migration->getMessages();
+        return $out;
     }
 
     public function getMigrations() {
@@ -61,6 +77,11 @@ class Migrator extends BaseApp
             }
         }
         return $migrations;
+    }
+
+    public function getMigration($migration) {
+        $migration = get_instance($migration);
+        return $migration;
     }
 
 }

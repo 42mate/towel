@@ -7,16 +7,16 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class MigrateCommand extends BaseCommand
+class RevertCommand extends BaseCommand
 {
     public function configure()
     {
-        $this->setName('migration:migrate')
-            ->setDescription('Run all pending migrations')
+        $this->setName('migration:revert')
+            ->setDescription('Revert a single migration')
             ->addOption(
                 'migration',
                 null,
-                InputOption::VALUE_OPTIONAL,
+                InputOption::VALUE_REQUIRED,
                 'Migration to Run.',
                 'all'
             );
@@ -27,11 +27,7 @@ class MigrateCommand extends BaseCommand
         $migrator = new \Towel\Migration\Migrator();
         $migration = $input->getOption('migration');
 
-        if ($migration == 'all') {
-            $migration = null;
-        }
-
-        $out = $migrator->migrate($migration);
+        $out = $migrator->revert($migration);
 
         foreach ($out as $o) {
             echo $o . "\n";
